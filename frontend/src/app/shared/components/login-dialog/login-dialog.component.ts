@@ -27,7 +27,7 @@ import { AuthService } from '../../../core/services/auth.service';
     <div class="login-dialog">
       <div class="dialog-header">
         <div class="header-content">
-          <img src="logo.png" alt="MyPortfolio Logo" class="dialog-logo">
+          <img src="portfolio.png" alt="MyPortfolio Logo" class="dialog-logo">
           <h2 mat-dialog-title>MyPortfolio Admin</h2>
         </div>
         <button mat-icon-button (click)="close()" class="close-btn">
@@ -107,18 +107,21 @@ import { AuthService } from '../../../core/services/auth.service';
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 24px 0;
+      padding: 24px 24px 16px;
 
       .header-content {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 4px;
       }
 
       .dialog-logo {
-        width: 48px;
-        height: 48px;
+        width: 96px;
+        height: 64px;
         object-fit: contain;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
       }
 
       h2 {
@@ -126,6 +129,7 @@ import { AuthService } from '../../../core/services/auth.service';
         font-size: 24px;
         font-weight: 600;
         color: #1a1a1a;
+        line-height: 64px;
       }
 
       .close-btn {

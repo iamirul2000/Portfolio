@@ -34,7 +34,7 @@ import { AuthService } from '../../core/services/auth.service';
         
         <div class="nav-content">
           <div class="page-info">
-            <img src="logo.png" alt="MyPortfolio Logo" class="admin-logo">
+            <img src="portfolio.png" alt="MyPortfolio Logo" class="admin-logo">
             <h1 class="page-title">MyPortfolio Admin</h1>
           </div>
           
@@ -155,8 +155,8 @@ import { AuthService } from '../../core/services/auth.service';
     }
 
     .admin-logo {
-      width: 32px;
-      height: 32px;
+      width: 60px;
+      height: 40px;
       object-fit: contain;
     }
 
