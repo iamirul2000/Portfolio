@@ -34,7 +34,7 @@ import { AuthService } from '../../core/services/auth.service';
         
         <div class="nav-content">
           <div class="page-info">
-            <img src="assets/logo.png" alt="MyPortfolio Logo" class="admin-logo">
+            <img src="logo.png" alt="MyPortfolio Logo" class="admin-logo">
             <h1 class="page-title">MyPortfolio Admin</h1>
           </div>
           
