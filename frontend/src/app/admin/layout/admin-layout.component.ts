@@ -248,7 +248,7 @@ import { AuthService } from '../../core/services/auth.service';
 
     .nav-item {
       display: flex !important;
-      align-items: center;
+      align-items: center !important;
       gap: 12px;
       padding: 10px 12px !important;
       margin-bottom: 4px;
@@ -257,18 +257,27 @@ import { AuthService } from '../../core/services/auth.service';
       transition: all 0.2s ease;
       cursor: pointer;
       text-decoration: none;
-      height: auto !important;
+      height: 44px !important;
+      min-height: 44px !important;
 
       mat-icon {
-        font-size: 20px;
-        width: 20px;
-        height: 20px;
+        font-size: 20px !important;
+        width: 20px !important;
+        height: 20px !important;
+        line-height: 20px !important;
         color: #64748b;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       span {
         font-size: 14px;
         font-weight: 500;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
       }
 
       &:hover {
@@ -286,6 +295,25 @@ import { AuthService } from '../../core/services/auth.service';
 
         mat-icon {
           color: #3b82f6;
+        }
+      }
+    }
+
+    /* Override Material List Item styles */
+    ::ng-deep {
+      .nav-item.mat-mdc-list-item {
+        .mdc-list-item__content {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 0;
+        }
+
+        .mat-mdc-list-item-unscoped-content {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          width: 100%;
         }
       }
     }
