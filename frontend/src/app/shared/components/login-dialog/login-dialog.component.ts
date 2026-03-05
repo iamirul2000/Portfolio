@@ -26,7 +26,10 @@ import { AuthService } from '../../../core/services/auth.service';
   template: `
     <div class="login-dialog">
       <div class="dialog-header">
-        <h2 mat-dialog-title>MyPortfolio Admin</h2>
+        <div class="header-content">
+          <img src="logo.png" alt="MyPortfolio Logo" class="dialog-logo">
+          <h2 mat-dialog-title>MyPortfolio Admin</h2>
+        </div>
         <button mat-icon-button (click)="close()" class="close-btn">
           <mat-icon>close</mat-icon>
         </button>
@@ -105,6 +108,18 @@ import { AuthService } from '../../../core/services/auth.service';
       justify-content: space-between;
       align-items: center;
       padding: 20px 24px 0;
+
+      .header-content {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .dialog-logo {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+      }
 
       h2 {
         margin: 0;
