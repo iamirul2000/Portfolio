@@ -49,4 +49,10 @@ export class HomeComponent implements OnInit {
   getSkillCategories(): string[] {
     return this.profile ? Object.keys(this.profile.skills_summary) : [];
   }
+
+  formatDate(date: string): string {
+    if (!date) return '';
+    const d = new Date(date);
+    return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  }
 }

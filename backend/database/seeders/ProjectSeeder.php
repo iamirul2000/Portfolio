@@ -16,7 +16,7 @@ class ProjectSeeder extends Seeder
         Project::create([
             'title' => 'PilgrimPro',
             'slug' => 'pilgrimpro',
-            'description' => 'Laravel-based web system for company operations and data management. Developed comprehensive database schema with normalization and optimization. Built RESTful APIs for frontend communication with focus on performance and scalability.',
+            'description' => 'Laravel web system for company operations and data management. Built RESTful APIs with optimized database schema for performance and scalability.',
             'role' => 'Full Stack Developer',
             'start_date' => '2023-09-01',
             'end_date' => '2024-10-01',
@@ -38,7 +38,7 @@ class ProjectSeeder extends Seeder
         Project::create([
             'title' => 'SakuPay',
             'slug' => 'sakupay',
-            'description' => 'iOS mobile application for payment and donation services. Maintained and updated existing codebase, fixed bugs, and optimized performance. Improved UI responsiveness and developed payment and donation modules with focus on code maintainability.',
+            'description' => 'iOS mobile app for payment and donation services. Enhanced performance, fixed bugs, and improved UI responsiveness with maintainable code.',
             'role' => 'iOS Developer',
             'start_date' => '2023-09-01',
             'end_date' => '2024-10-01',
@@ -60,7 +60,7 @@ class ProjectSeeder extends Seeder
         Project::create([
             'title' => 'POSLite',
             'slug' => 'poslite',
-            'description' => 'Cross-platform mobile and terminal application for sales tracking. Built Flutter mobile app with API integrations and intuitive UI. Developed Android payment terminal app with Fiu Payment Gateway SDK integration. Implemented state management and real-time data synchronization.',
+            'description' => 'Cross-platform mobile app for sales tracking. Built Flutter app with API integrations and Android payment terminal with Fiu Payment Gateway SDK.',
             'role' => 'Full Stack Mobile Developer',
             'start_date' => '2023-09-01',
             'end_date' => '2024-10-01',

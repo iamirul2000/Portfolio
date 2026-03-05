@@ -29,10 +29,31 @@
 .desktop-nav {
   display: flex;
   gap: 8px;
+  align-items: center;
 
   a {
     &.active {
       background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .admin-login-btn {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    color: white !important;
+    border-radius: 50px;
+    padding: 8px 24px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, #357abd 0%, #2868a8 100%);
+      box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+      transform: translateY(-2px);
+    }
+
+    &.active {
+      background: linear-gradient(135deg, #357abd 0%, #2868a8 100%);
     }
   }
 }
@@ -49,6 +70,29 @@
 
   .mobile-menu-button {
     display: block;
+  }
+}
+
+// Mobile menu styling
+::ng-deep .mobile-menu {
+  .admin-login-menu-item {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    color: white !important;
+    border-radius: 8px;
+    margin: 4px 8px;
+    font-weight: 500;
+
+    .mat-icon {
+      color: white !important;
+    }
+
+    span {
+      color: white !important;
+    }
+
+    &:hover {
+      background: linear-gradient(135deg, #357abd 0%, #2868a8 100%);
+    }
   }
 }
 

@@ -1,127 +1,388 @@
-.messages-list-container {
-  padding: 24px;
+.messages-container {
   max-width: 1400px;
   margin: 0 auto;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
-.header {
+/* Card Header */
+.card-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  justify-content: space-between;
+  padding: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 16px;
 
-  h1 {
-    font-size: 32px;
-    font-weight: 500;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: #f1f5f9;
+  letter-spacing: -0.01em;
+}
+
+.message-count {
+  font-size: 13px;
+  color: #64748b;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.filter-select {
+  min-width: 180px;
+
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+    }
+
+    .mat-mdc-form-field-flex {
+      height: 40px;
+    }
+
+    .mat-mdc-select-value,
+    .mat-mdc-select-arrow {
+      color: #e4e7eb;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  gap: 16px;
+
+  mat-spinner {
+    ::ng-deep circle {
+      stroke: #3b82f6;
+    }
+  }
+
+  p {
+    color: #94a3b8;
+    font-size: 14px;
     margin: 0;
   }
+}
 
-  .filter-field {
-    width: 200px;
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  text-align: center;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #475569;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #e4e7eb;
+    margin: 0 0 8px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+    max-width: 400px;
   }
 }
 
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 400px;
-}
-
-.table-container {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+/* Table */
+.table-wrapper {
+  overflow-x: auto;
 }
 
 .messages-table {
   width: 100%;
+  background: transparent;
 
-  th {
-    font-weight: 600;
-    font-size: 14px;
-    color: #666;
-  }
-
-  td {
-    padding: 16px;
-  }
-
-  tr.unread-row {
-    background-color: #f5f9ff;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #e8f4ff;
-    }
-  }
-
-  tr.mat-mdc-row {
-    cursor: pointer;
-
-    &:hover {
-      background-color: #f5f5f5;
-    }
-  }
-
-  .status-new {
-    background-color: #f44336;
-    color: white;
-    font-size: 11px;
-    font-weight: 600;
-    height: 24px;
-  }
-
-  .status-read {
-    background-color: #e0e0e0;
-    color: #666;
-    font-size: 11px;
-    font-weight: 600;
-    height: 24px;
-  }
-
-  .from-cell {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    strong {
-      font-size: 16px;
-      color: #333;
+  ::ng-deep {
+    .mat-mdc-table {
+      background: transparent;
     }
 
-    .email {
+    .mat-mdc-header-row {
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .mat-mdc-header-cell {
+      color: #94a3b8;
       font-size: 12px;
-      color: #999;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 16px 24px;
+      border-bottom: none;
+    }
+
+    .mat-mdc-row {
+      background: transparent;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      &.row-unread {
+        background: rgba(59, 130, 246, 0.04);
+
+        &:hover {
+          background: rgba(59, 130, 246, 0.08);
+        }
+      }
+    }
+
+    .mat-mdc-cell {
+      color: #e4e7eb;
+      font-size: 14px;
+      padding: 16px 24px;
+      border-bottom: none;
     }
   }
 }
 
-mat-paginator {
-  border-top: 1px solid #e0e0e0;
+/* Status Badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+
+  &.status-new {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+  }
+
+  &.status-read {
+    background: rgba(100, 116, 139, 0.15);
+    color: #94a3b8;
+  }
 }
 
+/* From Cell */
+.from-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  flex-shrink: 0;
+}
+
+.from-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.from-name {
+  font-weight: 500;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.from-email {
+  font-size: 13px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Subject Cell */
+.subject-cell {
+  color: #e4e7eb;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+/* Date Cell */
+.date-cell {
+  color: #94a3b8;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Action Menu Button */
+.action-menu-btn {
+  color: #64748b;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+  }
+}
+
+/* Pagination */
+.pagination-wrapper {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+  ::ng-deep {
+    .mat-mdc-paginator {
+      background: transparent;
+      color: #e4e7eb;
+    }
+
+    .mat-mdc-paginator-page-size-label,
+    .mat-mdc-paginator-range-label {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .mat-mdc-select-value {
+      color: #e4e7eb;
+    }
+
+    .mat-mdc-icon-button {
+      color: #64748b;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: #94a3b8;
+      }
+
+      &[disabled] {
+        color: #334155;
+      }
+    }
+  }
+}
+
+/* Material Menu Override */
+::ng-deep {
+  .action-menu {
+    .mat-mdc-menu-panel {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      margin-top: 4px;
+    }
+
+    .mat-mdc-menu-item {
+      color: #e4e7eb;
+      font-size: 14px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      mat-icon {
+        color: #64748b;
+        margin-right: 12px;
+      }
+    }
+  }
+
+  .mat-mdc-select-panel {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+  }
+
+  .mat-mdc-option {
+    color: #e4e7eb;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    &.mat-mdc-option-active {
+      background: rgba(59, 130, 246, 0.12);
+      color: #3b82f6;
+    }
+  }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .messages-list-container {
+  .messages-container {
+    border-radius: 12px;
+  }
+
+  .card-header {
     padding: 16px;
   }
 
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-
-    .filter-field {
-      width: 100%;
-    }
+  .card-title {
+    font-size: 18px;
   }
 
-  .messages-table {
-    font-size: 14px;
+  .subject-cell {
+    max-width: 150px;
+  }
 
-    td, th {
-      padding: 12px 8px;
+  ::ng-deep {
+    .mat-mdc-header-cell,
+    .mat-mdc-cell {
+      padding: 12px 16px;
     }
   }
 }

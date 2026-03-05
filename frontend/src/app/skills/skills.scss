@@ -20,7 +20,7 @@
 
     p {
       margin-bottom: 1.5rem;
-      color: #666;
+      color: var(--color-text-muted);
     }
   }
 
@@ -36,7 +36,7 @@
         font-size: 2.5rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
-        color: #1a237e;
+        color: var(--color-text);
 
         @media (max-width: 768px) {
           font-size: 2rem;
@@ -45,7 +45,7 @@
 
       .subtitle {
         font-size: 1.1rem;
-        color: #666;
+        color: var(--color-text-muted);
       }
     }
 
@@ -60,10 +60,13 @@
 
       .category-card {
         transition: transform 0.2s, box-shadow 0.2s;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
 
         &:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+          transform: translateY(-8px);
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
         mat-card-header {
@@ -72,13 +75,13 @@
             align-items: center;
             gap: 0.75rem;
             font-size: 1.5rem;
-            color: #1a237e;
+            color: var(--color-text);
 
             mat-icon {
               font-size: 28px;
               width: 28px;
               height: 28px;
-              color: #1976d2;
+              color: var(--color-primary);
             }
           }
         }
@@ -92,7 +95,6 @@
 
             .skill-item {
               mat-chip {
-                color: white;
                 font-weight: 500;
                 font-size: 0.95rem;
                 padding: 0.5rem 1rem;
@@ -117,17 +119,19 @@
     .no-data {
       text-align: center;
       padding: 3rem;
-      color: #999;
+      color: var(--color-text-muted);
 
       mat-icon {
         font-size: 64px;
         width: 64px;
         height: 64px;
         margin-bottom: 1rem;
+        color: var(--color-text-muted);
       }
 
       p {
         font-size: 1.1rem;
+        color: var(--color-text-muted);
       }
     }
   }

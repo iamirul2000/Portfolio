@@ -10,8 +10,8 @@ import { Contact } from './contact/contact';
 
 const routes: Routes = [
   // Public routes
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
+  { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: 'about', component: About },
   { path: 'experience', component: Experience },
   { path: 'projects', component: Projects },
@@ -26,7 +26,7 @@ const routes: Routes = [
   },
   
   // Fallback route
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

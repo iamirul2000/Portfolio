@@ -1,81 +1,178 @@
-<div class="home-container">
-  <!-- Loading State -->
-  <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+<div class="home-page">
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Error State -->
-  <div *ngIf="error && !loading" class="error-message">
-    <mat-icon>error</mat-icon>
-    <p>{{ error }}</p>
-    <button mat-raised-button color="primary" (click)="loadProfile()">Retry</button>
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <app-loading-spinner></app-loading-spinner>
   </div>
 
-  <!-- Content -->
-  <div *ngIf="profile && !loading" class="content">
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-container container section">
+    <div class="error-card card">
+      <h2 class="heading-2">{{ error }}</h2>
+      <button class="btn btn-primary" (click)="loadProfile()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main id="main-content" *ngIf="profile && !loading" class="fade-in">
+    
     <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="hero-content">
-        <h1 class="name">{{ profile.name }}</h1>
-        <h2 class="title">{{ profile.title }}</h2>
-        <p class="summary">{{ profile.summary }}</p>
-        
-        <div class="cta-buttons">
-          <button mat-raised-button color="primary" (click)="navigateToProjects()">
-            <mat-icon>work</mat-icon>
-            View Projects
-          </button>
-          <button mat-raised-button color="accent" (click)="navigateToContact()">
-            <mat-icon>email</mat-icon>
-            Contact Me
-          </button>
-        </div>
+    <section class="hero-section section" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-content">
+          <h1 id="hero-heading" class="heading-1 hero-title">
+            {{ profile.name }}
+          </h1>
+          <p class="hero-subtitle body-text-lg">
+            {{ profile.title }}
+          </p>
+          <p class="hero-pitch body-text text-muted">
+            {{ profile.summary }}
+          </p>
 
-        <div class="social-links">
-          <a [href]="'mailto:' + profile.email" mat-icon-button matTooltip="Email">
-            <mat-icon>email</mat-icon>
-          </a>
-          <a [href]="profile.github" target="_blank" mat-icon-button matTooltip="GitHub">
-            <mat-icon>code</mat-icon>
-          </a>
-          <a [href]="profile.linkedin" target="_blank" mat-icon-button matTooltip="LinkedIn">
-            <mat-icon>business</mat-icon>
-          </a>
-          <a [href]="'tel:' + profile.phone" mat-icon-button matTooltip="Phone">
-            <mat-icon>phone</mat-icon>
-          </a>
-        </div>
-      </div>
-    </section>
+          <!-- CTA Buttons -->
+          <div class="hero-actions">
+            <button 
+              class="btn btn-primary btn-lg" 
+              (click)="navigateToProjects()"
+              aria-label="View my projects">
+              View Projects
+            </button>
+            <button 
+              class="btn btn-outline btn-lg" 
+              (click)="navigateToContact()"
+              aria-label="Contact me">
+              Contact Me
+            </button>
+          </div>
 
-    <!-- Skills Summary Section -->
-    <section class="skills-summary-section">
-      <h3>Key Skills & Technologies</h3>
-      <div class="skills-grid">
-        <div *ngFor="let category of getSkillCategories()" class="skill-category">
-          <h4>{{ category }}</h4>
-          <div class="skill-chips">
-            <mat-chip *ngFor="let skill of profile.skills_summary[category]">
-              {{ skill }}
-            </mat-chip>
+          <!-- Tech Badges -->
+          <div class="tech-badges" role="list" aria-label="Technologies I work with">
+            <span class="chip chip-primary" role="listitem">Angular</span>
+            <span class="chip chip-primary" role="listitem">Laravel</span>
+            <span class="chip chip-primary" role="listitem">PHP</span>
+            <span class="chip chip-primary" role="listitem">TypeScript</span>
+            <span class="chip chip-primary" role="listitem">MySQL</span>
+            <span class="chip chip-primary" role="listitem">Docker</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Featured Projects Section -->
-    <section class="featured-projects-section">
-      <h3>Featured Projects</h3>
-      <div class="projects-grid">
-        <app-project-card 
-          *ngFor="let project of profile.featured_projects" 
-          [project]="project">
-        </app-project-card>
-      </div>
-      <div class="view-all-projects">
-        <button mat-stroked-button color="primary" (click)="navigateToProjects()">
-          View All Projects
-          <mat-icon>arrow_forward</mat-icon>
-        </button>
+    <section class="featured-projects-section section-sm" aria-labelledby="featured-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="featured-heading" class="heading-2">Featured Projects</h2>
+          <p class="text-muted">Some of my recent work</p>
+        </div>
+
+        <div class="projects-grid grid grid-cols-3">
+          <app-project-card
+            *ngFor="let project of profile.featured_projects"
+            [project]="project"
+            class="slide-up">
+          </app-project-card>
+        </div>
+
+        <div class="section-footer">
+          <button 
+            class="btn btn-outline" 
+            (click)="navigateToProjects()"
+            aria-label="View all projects">
+            View All Projects
+          </button>
+        </div>
       </div>
     </section>
-  </div>
+
+    <!-- Experience Timeline Section -->
+    <section class="experience-section section-sm" aria-labelledby="experience-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="experience-heading" class="heading-2">Experience</h2>
+          <p class="text-muted">My professional journey</p>
+        </div>
+
+        <div class="section-footer">
+          <a routerLink="/experience" class="btn btn-outline" aria-label="View full experience timeline">
+            View Full Experience
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section section-sm" aria-labelledby="skills-heading">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="skills-heading" class="heading-2">Skills & Technologies</h2>
+          <p class="text-muted">Tools and technologies I work with</p>
+        </div>
+
+        <div class="skills-grid">
+          <div 
+            *ngFor="let category of getSkillCategories()" 
+            class="skill-category card slide-up">
+            <h3 class="heading-3">{{ category }}</h3>
+            <div class="skill-chips">
+              <span 
+                *ngFor="let skill of profile.skills_summary[category]" 
+                class="chip chip-secondary">
+                {{ skill }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section section-sm" aria-labelledby="contact-heading">
+      <div class="container">
+        <div class="contact-card card">
+          <div class="contact-content">
+            <h2 id="contact-heading" class="heading-2">Let's Work Together</h2>
+            <p class="body-text-lg text-muted">
+              Have a project in mind? Let's discuss how I can help bring your ideas to life.
+            </p>
+
+            <div class="contact-actions">
+              <button 
+                class="btn btn-primary btn-lg" 
+                (click)="navigateToContact()"
+                aria-label="Send me a message">
+                Send Message
+              </button>
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-links" *ngIf="profile.github || profile.linkedin">
+              <a 
+                *ngIf="profile.github" 
+                [href]="profile.github" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="social-link"
+                aria-label="Visit my GitHub profile">
+                <span class="chip">GitHub</span>
+              </a>
+              <a 
+                *ngIf="profile.linkedin" 
+                [href]="profile.linkedin" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="social-link"
+                aria-label="Visit my LinkedIn profile">
+                <span class="chip">LinkedIn</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
 </div>

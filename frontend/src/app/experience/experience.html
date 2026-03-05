@@ -45,9 +45,12 @@
 
             <div class="highlights" *ngIf="exp.highlights && exp.highlights.length > 0">
               <h4>Key Highlights:</h4>
-              <ul>
-                <li *ngFor="let highlight of exp.highlights">{{ highlight }}</li>
-              </ul>
+              <ol class="highlights-list">
+                <li *ngFor="let highlight of exp.highlights; let idx = index">
+                  <span class="highlight-number">{{ idx + 1 }}.</span>
+                  <span class="highlight-text">{{ highlight }}</span>
+                </li>
+              </ol>
             </div>
 
             <div class="technologies" *ngIf="exp.technologies && exp.technologies.length > 0">

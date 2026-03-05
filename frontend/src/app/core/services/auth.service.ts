@@ -23,47 +23,48 @@ export class AuthService {
     this.checkAuth().subscribe();
   }
 
-  login(email: string, password: string): Observable<{ data: { user: User } }> {
-    // First get CSRF cookie, then perform login
-    return new Observable(observer => {
-      this.http.get(`${environment.apiUrl.replace('/api/v1', '')}/sanctum/csrf-cookie`, {
-        withCredentials: true
-      }).subscribe({
-        next: () => {
-          // After CSRF cookie is set, perform login
-          this.http.post<{ data: { user: User } }>(
-            `${environment.apiUrl}/auth/login`,
-            { email, password }
-          ).subscribe({
-            next: (response) => {
-              this.currentUserSubject.next(response.data.user);
-              this.isAuthenticatedSubject.next(true);
-              observer.next(response);
-              observer.complete();
-            },
-            error: (error) => {
-              observer.error(error);
-            }
-          });
-        },
-        error: (error) => {
-          observer.error(error);
-        }
-      });
-    });
+  login(email: string, password: string): Observable<{ data: { user: User; token: string } }> {
+    return this.http.post<{ data: { user: User; token: string } }>(
+      `${environment.apiUrl}/auth/login`,
+      { email, password }
+    ).pipe(
+      tap(response => {
+        // Store token in localStorage
+        localStorage.setItem('auth_token', response.data.token);
+        this.currentUserSubject.next(response.data.user);
+        this.isAuthenticatedSubject.next(true);
+      })
+    );
   }
 
   logout(): Observable<any> {
     return this.http.post(`${environment.apiUrl}/auth/logout`, {}).pipe(
       tap(() => {
+        localStorage.removeItem('auth_token');
         this.currentUserSubject.next(null);
         this.isAuthenticatedSubject.next(false);
-        this.router.navigate(['/admin/login']);
+        this.router.navigate(['/']);
+      }),
+      catchError(() => {
+        // Even if logout fails, clear local state
+        localStorage.removeItem('auth_token');
+        this.currentUserSubject.next(null);
+        this.isAuthenticatedSubject.next(false);
+        this.router.navigate(['/']);
+        return of(null);
       })
     );
   }
 
   checkAuth(): Observable<User | null> {
+    const token = localStorage.getItem('auth_token');
+    
+    if (!token) {
+      this.currentUserSubject.next(null);
+      this.isAuthenticatedSubject.next(false);
+      return of(null);
+    }
+
     return this.http.get<{ data: User }>(`${environment.apiUrl}/auth/me`).pipe(
       map(response => {
         this.currentUserSubject.next(response.data);
@@ -71,6 +72,7 @@ export class AuthService {
         return response.data;
       }),
       catchError(() => {
+        localStorage.removeItem('auth_token');
         this.currentUserSubject.next(null);
         this.isAuthenticatedSubject.next(false);
         return of(null);

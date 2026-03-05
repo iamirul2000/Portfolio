@@ -38,6 +38,13 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+
+    // Check if already authenticated and redirect to dashboard
+    this.authService.isAuthenticated$.subscribe(isAuth => {
+      if (isAuth) {
+        this.router.navigate(['/admin/dashboard']);
+      }
+    });
   }
 
   onSubmit(): void {
@@ -51,11 +58,13 @@ export class LoginComponent {
     const { email, password } = this.loginForm.value;
     this.authService.login(email!, password!).subscribe({
       next: () => {
+        this.loading = false;
         this.router.navigate(['/admin/dashboard']);
       },
       error: (error) => {
         this.loading = false;
         this.errorMessage = error.error?.error?.message || 'Invalid credentials. Please try again.';
+        console.error('Login error:', error);
       }
     });
   }

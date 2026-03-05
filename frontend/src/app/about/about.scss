@@ -1,62 +1,63 @@
 .about-container {
   min-height: 100vh;
-  padding: 2rem 1rem;
+  padding: var(--spacing-4xl) var(--spacing-md);
+  background: var(--color-bg);
 
   .error-message {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem;
+    padding: var(--spacing-3xl);
     text-align: center;
 
     mat-icon {
       font-size: 48px;
       width: 48px;
       height: 48px;
-      color: #f44336;
-      margin-bottom: 1rem;
+      color: var(--color-error);
+      margin-bottom: var(--spacing-md);
     }
 
     p {
-      margin-bottom: 1.5rem;
-      color: #666;
+      margin-bottom: var(--spacing-xl);
+      color: var(--color-text-muted);
     }
   }
 
   .content {
-    max-width: 1000px;
+    max-width: var(--max-width);
     margin: 0 auto;
 
     .page-title {
-      font-size: 2.5rem;
-      font-weight: 700;
+      font-size: clamp(var(--font-size-3xl), 4vw, var(--font-size-4xl));
+      font-weight: var(--font-weight-bold);
       text-align: center;
-      margin-bottom: 3rem;
-      color: #1a237e;
+      margin-bottom: var(--spacing-3xl);
+      color: var(--color-text);
 
       @media (max-width: 768px) {
-        font-size: 2rem;
+        font-size: var(--font-size-3xl);
       }
     }
 
     section {
-      margin-bottom: 3rem;
+      margin-bottom: var(--spacing-3xl);
 
       h2 {
-        font-size: 1.8rem;
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        color: #333;
+        font-size: var(--font-size-2xl);
+        font-weight: var(--font-weight-semibold);
+        margin-bottom: var(--spacing-xl);
+        color: var(--color-text);
       }
     }
 
     // Summary Section
     .summary-section {
       .summary-text {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: #444;
+        font-size: var(--font-size-md);
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text);
       }
     }
 
@@ -65,40 +66,44 @@
       .education-timeline {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: var(--spacing-xl);
 
         .education-card {
+          background: var(--color-surface);
+          border: 1px solid var(--color-border);
+          
           mat-card-title {
-            font-size: 1.2rem;
-            color: #1a237e;
+            font-size: var(--font-size-xl);
+            color: var(--color-primary);
           }
 
           mat-card-subtitle {
-            font-size: 1rem;
-            margin-top: 0.5rem;
+            font-size: var(--font-size-base);
+            margin-top: var(--spacing-sm);
+            color: var(--color-text-muted);
           }
 
           .education-details {
             display: flex;
-            gap: 2rem;
-            margin-top: 1rem;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-md);
 
             @media (max-width: 768px) {
               flex-direction: column;
-              gap: 0.5rem;
+              gap: var(--spacing-sm);
             }
 
             .detail-item {
               display: flex;
               align-items: center;
-              gap: 0.5rem;
-              color: #666;
+              gap: var(--spacing-sm);
+              color: var(--color-text-muted);
 
               mat-icon {
                 font-size: 20px;
                 width: 20px;
                 height: 20px;
-                color: #1976d2;
+                color: var(--color-primary);
               }
             }
           }
@@ -109,17 +114,17 @@
     // Focus Section
     .focus-section {
       p {
-        margin-bottom: 1rem;
-        color: #444;
+        margin-bottom: var(--spacing-md);
+        color: var(--color-text);
       }
 
       ul {
         list-style-position: inside;
-        color: #666;
+        color: var(--color-text-muted);
 
         li {
-          margin-bottom: 0.5rem;
-          line-height: 1.6;
+          margin-bottom: var(--spacing-sm);
+          line-height: var(--line-height-relaxed);
         }
       }
     }
@@ -127,14 +132,14 @@
     // Resume Section
     .resume-section {
       p {
-        margin-bottom: 1rem;
-        color: #444;
+        margin-bottom: var(--spacing-md);
+        color: var(--color-text);
       }
 
       button {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: var(--spacing-sm);
 
         mat-icon {
           font-size: 20px;
@@ -149,7 +154,7 @@
       .contact-cards {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
+        gap: var(--spacing-xl);
 
         @media (max-width: 768px) {
           grid-template-columns: 1fr;
@@ -157,35 +162,41 @@
 
         .contact-card {
           text-align: center;
-          padding: 1.5rem;
-          transition: transform 0.2s, box-shadow 0.2s;
+          padding: var(--spacing-xl);
+          background: var(--color-surface);
+          border: 1px solid var(--color-border);
+          border-radius: var(--border-radius);
+          transition: all var(--transition-base);
 
           &:hover {
             transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-primary);
           }
 
           mat-icon {
             font-size: 36px;
             width: 36px;
             height: 36px;
-            color: #1976d2;
-            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
           }
 
           h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #333;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text);
           }
 
           a {
-            color: #1976d2;
+            color: var(--color-primary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: var(--font-size-sm);
+            transition: color var(--transition-fast);
 
             &:hover {
+              color: var(--color-primary-hover);
               text-decoration: underline;
             }
           }

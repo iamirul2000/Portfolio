@@ -41,16 +41,35 @@ export class Skills implements OnInit {
   getLevelColor(level: string | null): string {
     switch (level) {
       case 'Expert':
-        return '#4caf50';
+        return 'rgba(52, 211, 153, 0.15)'; // Green with transparency
       case 'Advanced':
-        return '#2196f3';
+        return 'rgba(96, 165, 250, 0.15)'; // Blue with transparency
       case 'Intermediate':
-        return '#ff9800';
+        return 'rgba(251, 146, 60, 0.15)'; // Orange with transparency
       case 'Beginner':
-        return '#9e9e9e';
+        return 'rgba(156, 163, 175, 0.15)'; // Gray with transparency
       default:
-        return '#1976d2';
+        return 'rgba(96, 165, 250, 0.15)'; // Default blue
     }
+  }
+
+  getTextColorForLevel(level: string | null): string {
+    switch (level) {
+      case 'Expert':
+        return '#34D399'; // Bright green
+      case 'Advanced':
+        return '#60A5FA'; // Bright blue
+      case 'Intermediate':
+        return '#FB923C'; // Bright orange
+      case 'Beginner':
+        return '#9CA3AF'; // Light gray
+      default:
+        return '#60A5FA'; // Default bright blue
+    }
+  }
+
+  getBorderColorForLevel(level: string | null): string {
+    return this.getTextColorForLevel(level);
   }
 
   getCategoryIcon(category: string): string {

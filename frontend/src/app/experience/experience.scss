@@ -20,7 +20,7 @@
 
     p {
       margin-bottom: 1.5rem;
-      color: #666;
+      color: var(--color-text-muted);
     }
   }
 
@@ -33,7 +33,7 @@
       font-weight: 700;
       text-align: center;
       margin-bottom: 3rem;
-      color: #1a237e;
+      color: var(--color-text);
 
       @media (max-width: 768px) {
         font-size: 2rem;
@@ -62,21 +62,21 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background-color: #1976d2;
-            border: 3px solid #e3f2fd;
+            background-color: var(--color-primary);
+            border: 3px solid var(--color-surface);
             z-index: 1;
 
             &.current {
-              background-color: #4caf50;
-              border-color: #c8e6c9;
-              box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.2);
+              background-color: var(--color-secondary);
+              border-color: var(--color-surface);
+              box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.2);
             }
           }
 
           .marker-line {
             width: 2px;
             flex-grow: 1;
-            background-color: #e0e0e0;
+            background-color: var(--color-border);
             margin-top: 0.5rem;
           }
         }
@@ -84,10 +84,13 @@
         .experience-card {
           flex-grow: 1;
           transition: transform 0.2s, box-shadow 0.2s;
+          border-radius: 16px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+          overflow: hidden;
 
           &:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 6px 12px rgba(0, 0, 0, 0.3);
           }
 
           mat-card-header {
@@ -107,7 +110,7 @@
 
                 mat-card-title {
                   font-size: 1.4rem;
-                  color: #1a237e;
+                  color: var(--color-text);
                   margin-bottom: 0.5rem;
                 }
 
@@ -120,16 +123,16 @@
 
                   .company-name {
                     font-weight: 600;
-                    color: #333;
+                    color: var(--color-text);
                   }
 
                   .separator {
-                    color: #999;
+                    color: var(--color-text-muted);
                   }
 
                   .location,
                   .domain {
-                    color: #666;
+                    color: var(--color-text-muted);
                   }
                 }
               }
@@ -139,19 +142,19 @@
                 align-items: center;
                 gap: 0.5rem;
                 padding: 0.5rem 1rem;
-                background-color: #e3f2fd;
-                color: #1976d2;
+                background-color: rgba(96, 165, 250, 0.15);
+                color: var(--color-primary);
                 border-radius: 20px;
                 font-size: 0.9rem;
                 font-weight: 500;
                 white-space: nowrap;
 
                 &.current-badge {
-                  background-color: #c8e6c9;
-                  color: #2e7d32;
+                  background-color: rgba(52, 211, 153, 0.15);
+                  color: var(--color-secondary);
 
                   mat-icon {
-                    color: #2e7d32;
+                    color: var(--color-secondary);
                   }
                 }
 
@@ -168,7 +171,7 @@
             .summary {
               font-size: 1rem;
               line-height: 1.6;
-              color: #444;
+              color: var(--color-text-muted);
               margin-bottom: 1.5rem;
             }
 
@@ -178,18 +181,35 @@
               h4 {
                 font-size: 1rem;
                 font-weight: 600;
-                color: #333;
+                color: var(--color-text);
                 margin-bottom: 0.75rem;
               }
 
-              ul {
-                list-style-position: inside;
-                color: #666;
+              .highlights-list {
+                list-style: none;
+                counter-reset: highlight-counter;
+                color: var(--color-text-muted);
                 padding-left: 0;
+                margin: 0;
 
                 li {
-                  margin-bottom: 0.5rem;
-                  line-height: 1.5;
+                  margin-bottom: 0.75rem;
+                  line-height: 1.6;
+                  display: flex;
+                  gap: 0.75rem;
+                  color: var(--color-text-muted);
+
+                  .highlight-number {
+                    color: var(--color-primary);
+                    font-weight: 600;
+                    flex-shrink: 0;
+                    min-width: 24px;
+                  }
+
+                  .highlight-text {
+                    flex: 1;
+                    color: var(--color-text-muted);
+                  }
                 }
               }
             }
@@ -198,7 +218,7 @@
               h4 {
                 font-size: 1rem;
                 font-weight: 600;
-                color: #333;
+                color: var(--color-text);
                 margin-bottom: 0.75rem;
               }
 
@@ -208,14 +228,15 @@
                 gap: 0.5rem;
 
                 mat-chip {
-                  background-color: #e3f2fd;
-                  color: #1976d2;
+                  background-color: rgba(96, 165, 250, 0.15);
+                  color: var(--color-primary);
                   font-weight: 500;
                   cursor: pointer;
                   transition: background-color 0.2s;
 
                   &:hover {
-                    background-color: #bbdefb;
+                    background-color: var(--color-primary);
+                    color: white;
                   }
                 }
               }
@@ -228,17 +249,19 @@
     .no-data {
       text-align: center;
       padding: 3rem;
-      color: #999;
+      color: var(--color-text-muted);
 
       mat-icon {
         font-size: 64px;
         width: 64px;
         height: 64px;
         margin-bottom: 1rem;
+        color: var(--color-text-muted);
       }
 
       p {
         font-size: 1.1rem;
+        color: var(--color-text-muted);
       }
     }
   }

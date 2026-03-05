@@ -10,6 +10,7 @@
       <a mat-button routerLink="/projects" routerLinkActive="active">Projects</a>
       <a mat-button routerLink="/skills" routerLinkActive="active">Skills</a>
       <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
+      <a mat-button routerLink="/admin/login" routerLinkActive="active" class="admin-login-btn" *ngIf="!(isAuthenticated$ | async)">Admin Login</a>
       <a mat-button routerLink="/admin" routerLinkActive="active" *ngIf="isAuthenticated$ | async">Admin</a>
       <button mat-button (click)="logout()" *ngIf="isAuthenticated$ | async">
         <mat-icon>logout</mat-icon>
@@ -47,6 +48,10 @@
       <a mat-menu-item routerLink="/contact" routerLinkActive="active">
         <mat-icon>email</mat-icon>
         <span>Contact</span>
+      </a>
+      <a mat-menu-item routerLink="/admin/login" routerLinkActive="active" class="admin-login-menu-item" *ngIf="!(isAuthenticated$ | async)">
+        <mat-icon>login</mat-icon>
+        <span>Admin Login</span>
       </a>
       <a mat-menu-item routerLink="/admin" routerLinkActive="active" *ngIf="isAuthenticated$ | async">
         <mat-icon>admin_panel_settings</mat-icon>

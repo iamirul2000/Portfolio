@@ -1,10 +1,17 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  // Add withCredentials to all requests for Sanctum cookie-based auth
-  const authReq = req.clone({
-    withCredentials: true
-  });
+  // Get token from localStorage
+  const token = localStorage.getItem('auth_token');
+  
+  // Clone request and add Authorization header if token exists
+  if (token) {
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
 
-  return next(authReq);
+  return next(req);
 };

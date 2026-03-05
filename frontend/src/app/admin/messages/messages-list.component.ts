@@ -9,6 +9,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ContactService } from '../../core/services/contact.service';
 import { ContactMessage } from '../../core/models/contact-message.model';
@@ -27,6 +29,8 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
     MatChipsModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatMenuModule,
+    MatTooltipModule,
     MatDialogModule
   ],
   templateUrl: './messages-list.component.html',
@@ -99,5 +103,14 @@ export class MessagesListComponent implements OnInit {
         });
       }
     });
+  }
+
+  getInitials(name: string): string {
+    return name
+      .split(' ')
+      .map(n => n[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
   }
 }

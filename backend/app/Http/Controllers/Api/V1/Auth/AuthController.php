@@ -28,14 +28,13 @@ class AuthController extends Controller
 
         $user = Auth::user();
 
-        // Only regenerate session if it exists (for web/SPA requests)
-        if ($request->hasSession()) {
-            $request->session()->regenerate();
-        }
+        // Create API token for the user
+        $token = $user->createToken('auth-token')->plainTextToken;
 
         return response()->json([
             'data' => [
                 'user' => new UserResource($user),
+                'token' => $token,
             ],
         ], 200);
     }
@@ -45,13 +44,8 @@ class AuthController extends Controller
      */
     public function logout(Request $request): JsonResponse
     {
-        Auth::guard('web')->logout();
-
-        // Only invalidate session if it exists (for web/SPA requests)
-        if ($request->hasSession()) {
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-        }
+        // Delete current access token
+        $request->user()->currentAccessToken()->delete();
 
         return response()->json([
             'data' => [

@@ -1,0 +1,249 @@
+// Global color fixes for better readability
+// This file overrides any hardcoded dark colors with theme variables
+
+// Force all body text to be light colored
+body, body * {
+  color: var(--color-text) !important;
+}
+
+// Specific overrides for muted text
+.mat-mdc-card-subtitle,
+p:not(.mat-mdc-button):not(.btn),
+span:not(.mat-mdc-button-touch-target):not(.mat-mdc-button-persistent-ripple),
+.text-muted,
+.muted,
+[class*="subtitle"],
+[class*="description"],
+[class*="summary"] {
+  color: var(--color-text-muted) !important;
+}
+
+// Override Material Design components
+.mat-mdc-card-title,
+.mat-mdc-card-content,
+mat-card-title,
+mat-card-subtitle,
+mat-card-content {
+  color: inherit !important;
+}
+
+// Fix all headings to be bright white
+h1, h2, h3, h4, h5, h6,
+.mat-h1, .mat-h2, .mat-h3, .mat-h4, .mat-h5, .mat-h6,
+.mat-headline-1, .mat-headline-2, .mat-headline-3, .mat-headline-4, .mat-headline-5, .mat-headline-6,
+[class*="title"],
+[class*="heading"] {
+  color: var(--color-text) !important;
+}
+
+// Fix Material cards
+mat-card, .mat-mdc-card {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+// Fix Material chips
+mat-chip, .mat-mdc-chip, .chip {
+  background-color: rgba(96, 165, 250, 0.15) !important;
+  color: var(--color-primary) !important;
+  border: 1px solid var(--color-primary) !important;
+  
+  &:hover {
+    background-color: var(--color-primary) !important;
+    color: white !important;
+    border-color: var(--color-primary) !important;
+  }
+}
+
+// Fix chip secondary variant
+.chip-secondary {
+  background-color: rgba(52, 211, 153, 0.15) !important;
+  color: var(--color-secondary) !important;
+  border: 1px solid var(--color-secondary) !important;
+  
+  &:hover {
+    background-color: var(--color-secondary) !important;
+    color: white !important;
+  }
+}
+
+// Fix links
+a:not(.mat-mdc-button):not(.btn) {
+  color: var(--color-primary) !important;
+  
+  &:hover {
+    color: var(--color-primary-hover) !important;
+  }
+}
+
+// Fix list items
+li {
+  color: var(--color-text-muted) !important;
+}
+
+// Override any inline styles with dark colors
+[style*="color: #1a237e"],
+[style*="color: #333"],
+[style*="color: #444"],
+[style*="color: #666"],
+[style*="color: #999"],
+[style*="color: rgb(26, 35, 126)"],
+[style*="color: rgb(51, 51, 51)"],
+[style*="color: rgb(68, 68, 68)"],
+[style*="color: rgb(102, 102, 102)"],
+[style*="color: rgba(0, 0, 0"] {
+  color: var(--color-text) !important;
+}
+
+// Fix blue backgrounds with dark text
+[style*="background-color: #e3f2fd"],
+[style*="background: #e3f2fd"],
+.mat-mdc-chip-selected {
+  background-color: rgba(96, 165, 250, 0.15) !important;
+  color: var(--color-primary) !important;
+}
+
+// Fix green backgrounds
+[style*="background-color: #c8e6c9"],
+[style*="background: #c8e6c9"] {
+  background-color: rgba(52, 211, 153, 0.15) !important;
+  color: var(--color-secondary) !important;
+}
+
+// Fix any pale/light backgrounds with poor contrast
+[style*="background-color: #e"],
+[style*="background-color: #f"],
+[style*="background: #e"],
+[style*="background: #f"] {
+  color: var(--color-text) !important;
+}
+
+// Fix Material button toggle groups
+.mat-button-toggle-group,
+mat-button-toggle-group {
+  .mat-button-toggle,
+  mat-button-toggle {
+    background-color: var(--color-surface) !important;
+    color: var(--color-text) !important;
+    border-color: var(--color-border) !important;
+    
+    &.mat-button-toggle-checked,
+    &[aria-pressed="true"] {
+      background-color: var(--color-primary) !important;
+      color: white !important;
+    }
+  }
+}
+
+// Fix date badges and similar elements
+[class*="badge"],
+[class*="tag"],
+[class*="label"] {
+  color: var(--color-text) !important;
+}
+
+// Ensure buttons keep their proper colors
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button,
+.btn {
+  color: inherit !important;
+}
+
+// Fix all Material form fields
+.mat-mdc-form-field,
+.mat-form-field {
+  .mat-mdc-input-element,
+  input,
+  textarea {
+    color: var(--color-text) !important;
+  }
+  
+  label,
+  .mat-mdc-form-field-label,
+  .mat-form-field-label {
+    color: var(--color-text-muted) !important;
+  }
+}
+
+// Fix Material select
+.mat-mdc-select,
+.mat-select {
+  color: var(--color-text) !important;
+  
+  .mat-mdc-select-value,
+  .mat-select-value {
+    color: var(--color-text) !important;
+  }
+}
+
+// Fix any element with light background
+[class*="bg-light"],
+[class*="background-light"],
+.light-bg {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text) !important;
+}
+
+// AGGRESSIVE FIX: Override ALL light/pale backgrounds
+// This catches any element with a light background color
+*[style*="background"] {
+  &:not(.mat-mdc-button):not(.btn):not(.mat-toolbar):not(mat-toolbar) {
+    // If background is light (starts with #e, #f, or rgb with high values)
+    // Force text to be dark enough to read
+    color: var(--color-text) !important;
+  }
+}
+
+// Fix specific pale color ranges that cause readability issues
+[style*="background-color: rgb(2"][style*=", 2"][style*=", 2"],
+[style*="background-color: rgb(2"][style*=", 2"][style*=", 1"],
+[style*="background: rgb(2"][style*=", 2"][style*=", 2"],
+[style*="background: rgb(2"][style*=", 2"][style*=", 1"] {
+  color: var(--color-text) !important;
+}
+
+// Fix any rgba with high opacity light colors
+[style*="background-color: rgba(2"][style*=", 2"][style*=", 2"],
+[style*="background: rgba(2"][style*=", 2"][style*=", 2"] {
+  color: var(--color-text) !important;
+}
+
+// Nuclear option: Fix ALL elements with computed light backgrounds
+// Target common Material components that might have light backgrounds
+.mat-mdc-chip-set,
+.mat-chip-list,
+.mat-mdc-standard-chip,
+mat-chip-listbox,
+mat-chip-option {
+  .mat-mdc-chip,
+  mat-chip {
+    background-color: rgba(96, 165, 250, 0.15) !important;
+    color: var(--color-primary) !important;
+    
+    &.mat-mdc-chip-selected,
+    &[aria-selected="true"] {
+      background-color: var(--color-primary) !important;
+      color: white !important;
+    }
+  }
+}
+
+// Global Material Card styling overrides
+mat-card, .mat-mdc-card {
+  border-radius: 16px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  overflow: hidden !important;
+  
+  &:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 6px 12px rgba(0, 0, 0, 0.3) !important;
+  }
+}
+
+// Ensure card content doesn't overflow
+mat-card-content, .mat-mdc-card-content {
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+  hyphens: auto !important;
+}

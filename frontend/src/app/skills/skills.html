@@ -28,7 +28,10 @@
         <mat-card-content>
           <div class="skills-list">
             <div *ngFor="let skill of skillsByCategory[category]" class="skill-item">
-              <mat-chip [style.background-color]="getLevelColor(skill.level)">
+              <mat-chip 
+                [style.background-color]="getLevelColor(skill.level)"
+                [style.color]="getTextColorForLevel(skill.level)"
+                [style.border]="'1px solid ' + getBorderColorForLevel(skill.level)">
                 {{ skill.name }}
                 <span *ngIf="skill.level" class="level-badge">{{ skill.level }}</span>
               </mat-chip>
