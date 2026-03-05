@@ -1,3 +1,5 @@
+@import '../admin-shared.scss';
+
 .skills-list-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -13,23 +15,16 @@
     font-size: 24px;
     font-weight: 600;
     margin: 0;
-    color: #f1f5f9;
     letter-spacing: -0.01em;
   }
 
   button {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    color: white;
+    @extend .btn-gradient;
     border-radius: 12px;
     padding: 10px 20px;
-    font-weight: 500;
 
     mat-icon {
       margin-right: 8px;
-    }
-
-    &:hover {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
     }
   }
 }
@@ -54,8 +49,8 @@
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 16px;
-    color: #3b82f6;
     letter-spacing: -0.01em;
+    @extend .gradient-text;
   }
 }
 
@@ -66,6 +61,7 @@
 }
 
 .skill-card {
+  @extend .admin-card;
   background: rgba(15, 23, 42, 0.6);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -74,10 +70,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.2s ease;
 
   &:hover {
-    transform: translateY(-2px);
     background: rgba(15, 23, 42, 0.8);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   }
@@ -91,7 +85,7 @@
       font-size: 15px;
       font-weight: 500;
       margin: 0;
-      color: #f1f5f9;
+      color: var(--color-text);
     }
 
     .level-chip {
@@ -108,6 +102,7 @@
   }
 
   .skill-actions {
+    @extend .action-buttons;
     display: flex;
     gap: 4px;
 

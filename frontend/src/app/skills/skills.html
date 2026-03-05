@@ -1,4 +1,11 @@
 <div class="skills-container">
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="floating-icon" *ngFor="let icon of floatingIcons" [style.left.%]="icon.x" [style.animation-delay.s]="icon.delay">
+      <mat-icon>{{ icon.name }}</mat-icon>
+    </div>
+  </div>
+
   <!-- Loading State -->
   <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 
@@ -11,31 +18,50 @@
 
   <!-- Content -->
   <div *ngIf="!loading && !error" class="content">
-    <div class="header">
-      <h1 class="page-title">Skills & Technologies</h1>
+    <div class="header" appScrollAnimation>
+      <h1 class="page-title">
+        <span class="gradient-text">Skills & Technologies</span>
+      </h1>
       <p class="subtitle">My technical expertise across various domains</p>
+      
+      <!-- Stats Overview -->
+      <div class="stats-overview">
+        <div class="stat-card" *ngFor="let stat of stats">
+          <div class="stat-icon">
+            <mat-icon>{{ stat.icon }}</mat-icon>
+          </div>
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
     </div>
 
     <!-- Skills Grid -->
     <div class="skills-grid" *ngIf="categories.length > 0">
-      <mat-card *ngFor="let category of categories" class="category-card">
+      <mat-card *ngFor="let category of categories; let i = index" 
+                class="category-card" 
+                appScrollAnimation
+                [style.animation-delay.ms]="i * 100">
+        <div class="card-glow"></div>
         <mat-card-header>
-          <mat-card-title>
-            <mat-icon>{{ getCategoryIcon(category) }}</mat-icon>
-            {{ category }}
-          </mat-card-title>
+          <div class="header-content">
+            <div class="icon-wrapper">
+              <mat-icon>{{ getCategoryIcon(category) }}</mat-icon>
+            </div>
+            <div class="title-wrapper">
+              <mat-card-title>{{ category }}</mat-card-title>
+              <span class="skill-count">{{ skillsByCategory[category].length }} skills</span>
+            </div>
+          </div>
         </mat-card-header>
         <mat-card-content>
-          <div class="skills-list">
-            <div *ngFor="let skill of skillsByCategory[category]" class="skill-item">
-              <mat-chip 
-                [style.background-color]="getLevelColor(skill.level)"
-                [style.color]="getTextColorForLevel(skill.level)"
-                [style.border]="'1px solid ' + getBorderColorForLevel(skill.level)">
-                {{ skill.name }}
-                <span *ngIf="skill.level" class="level-badge">{{ skill.level }}</span>
-              </mat-chip>
-            </div>
+          <div class="skills-progress-list">
+            <app-skill-progress-bar
+              *ngFor="let skill of skillsByCategory[category]"
+              [skillName]="skill.name"
+              [level]="getLevelPercentage(skill.level)"
+              [animateOnView]="true">
+            </app-skill-progress-bar>
           </div>
         </mat-card-content>
       </mat-card>

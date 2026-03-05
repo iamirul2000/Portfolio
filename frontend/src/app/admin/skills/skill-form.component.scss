@@ -1,3 +1,5 @@
+@import '../admin-shared.scss';
+
 .form-container {
   padding: 24px;
   max-width: 600px;
@@ -9,16 +11,19 @@
 
   h1 {
     font-size: 32px;
-    font-weight: 500;
+    font-weight: 700;
     margin: 0;
+    @extend .gradient-text;
   }
 }
 
 mat-card {
+  @extend .admin-card;
   padding: 24px;
 }
 
 form {
+  @extend .admin-form;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -39,9 +44,10 @@ form {
   gap: 12px;
   margin-top: 24px;
   padding-top: 24px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 
   button[type="submit"] {
+    @extend .btn-gradient;
     min-width: 120px;
 
     mat-spinner {

@@ -11,10 +11,12 @@
 
   <!-- Content -->
   <div *ngIf="profile && !loading" class="content">
-    <h1 class="page-title">About Me</h1>
+    <h1 class="page-title">
+      <span class="gradient-text">About Me</span>
+    </h1>
 
     <!-- Professional Summary Section -->
-    <section class="summary-section">
+    <section class="summary-section" appScrollAnimation="fade-in">
       <mat-card>
         <mat-card-header>
           <mat-card-title>Professional Summary</mat-card-title>
@@ -25,11 +27,63 @@
       </mat-card>
     </section>
 
+    <!-- Interactive Stats Section -->
+    <section class="stats-section" appScrollAnimation="slide-up">
+      <h2>By The Numbers</h2>
+      <div class="stats-grid">
+        <div class="stat-card" *ngFor="let stat of stats">
+          <div class="stat-icon">
+            <mat-icon>{{ stat.icon }}</mat-icon>
+          </div>
+          <div class="stat-content">
+            <div class="stat-value">
+              <app-animated-counter 
+                [endValue]="stat.value" 
+                [duration]="2000">
+              </app-animated-counter>
+              <span class="suffix">{{ stat.suffix }}</span>
+            </div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fun Facts Section -->
+    <section class="fun-facts-section" appScrollAnimation="fade-in">
+      <h2>Fun Facts About Me</h2>
+      <div class="facts-grid">
+        <div class="fact-card" *ngFor="let fact of funFacts" appScrollAnimation="scale">
+          <div class="fact-icon" [style.color]="fact.color">
+            <mat-icon>{{ fact.icon }}</mat-icon>
+          </div>
+          <div class="fact-label">{{ fact.label }}</div>
+          <div class="fact-value">{{ fact.value }}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Skills Section -->
+    <section class="top-skills-section" appScrollAnimation="slide-up">
+      <h2>Core Technologies</h2>
+      <div class="skills-grid">
+        <div class="skill-badge" *ngFor="let skill of topSkills" appScrollAnimation="scale">
+          <div class="skill-icon" [style.background]="skill.color">
+            <mat-icon>{{ skill.icon }}</mat-icon>
+          </div>
+          <div class="skill-info">
+            <div class="skill-name">{{ skill.name }}</div>
+            <div class="skill-category">{{ skill.category }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Education Section -->
-    <section class="education-section">
+    <section class="education-section" appScrollAnimation="fade-in">
       <h2>Education</h2>
       <div class="education-timeline">
-        <mat-card *ngFor="let edu of education" class="education-card">
+        <mat-card *ngFor="let edu of education" class="education-card" appScrollAnimation="slide-left">
           <mat-card-header>
             <mat-card-title>{{ edu.degree }}</mat-card-title>
             <mat-card-subtitle>{{ edu.institution }}</mat-card-subtitle>
@@ -51,25 +105,25 @@
     </section>
 
     <!-- Current Focus Section -->
-    <section class="focus-section">
+    <section class="focus-section" appScrollAnimation="slide-right">
       <mat-card>
         <mat-card-header>
           <mat-card-title>Current Focus</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <p>Currently working as a Full Stack Web Software Engineer at Asian Business Software Solutions (ABSS), focusing on:</p>
-          <ul>
+          <ol class="focus-list">
             <li>Angular frontend development and optimization</li>
             <li>Laravel backend maintenance and enhancement</li>
             <li>Bug fixing and improving application stability</li>
             <li>Collaborating with team to deliver quality software</li>
-          </ul>
+          </ol>
         </mat-card-content>
       </mat-card>
     </section>
 
     <!-- Resume Download Section -->
-    <section class="resume-section">
+    <section class="resume-section" appScrollAnimation="fade-in">
       <mat-card>
         <mat-card-header>
           <mat-card-title>Resume</mat-card-title>
@@ -85,26 +139,38 @@
     </section>
 
     <!-- Contact Information -->
-    <section class="contact-info-section">
+    <section class="contact-info-section" appScrollAnimation="slide-up">
       <h2>Get In Touch</h2>
       <div class="contact-cards">
-        <mat-card class="contact-card">
-          <mat-icon>email</mat-icon>
+        <mat-card class="contact-card" appScrollAnimation="scale" [style.animation-delay.ms]="0">
+          <div class="card-glow"></div>
+          <div class="icon-wrapper">
+            <mat-icon>email</mat-icon>
+          </div>
           <h3>Email</h3>
           <a [href]="'mailto:' + profile.email">{{ profile.email }}</a>
         </mat-card>
-        <mat-card class="contact-card">
-          <mat-icon>phone</mat-icon>
+        <mat-card class="contact-card" appScrollAnimation="scale" [style.animation-delay.ms]="100">
+          <div class="card-glow"></div>
+          <div class="icon-wrapper">
+            <mat-icon>phone</mat-icon>
+          </div>
           <h3>Phone</h3>
           <a [href]="'tel:' + profile.phone">{{ profile.phone }}</a>
         </mat-card>
-        <mat-card class="contact-card">
-          <mat-icon>code</mat-icon>
+        <mat-card class="contact-card" appScrollAnimation="scale" [style.animation-delay.ms]="200">
+          <div class="card-glow"></div>
+          <div class="icon-wrapper">
+            <mat-icon>code</mat-icon>
+          </div>
           <h3>GitHub</h3>
           <a [href]="profile.github" target="_blank">View Profile</a>
         </mat-card>
-        <mat-card class="contact-card">
-          <mat-icon>business</mat-icon>
+        <mat-card class="contact-card" appScrollAnimation="scale" [style.animation-delay.ms]="300">
+          <div class="card-glow"></div>
+          <div class="icon-wrapper">
+            <mat-icon>business</mat-icon>
+          </div>
           <h3>LinkedIn</h3>
           <a [href]="profile.linkedin" target="_blank">Connect</a>
         </mat-card>

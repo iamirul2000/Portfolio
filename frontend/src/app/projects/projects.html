@@ -11,26 +11,121 @@
 
   <!-- Content -->
   <div *ngIf="!loading && !error" class="content">
-    <div class="header">
-      <h1 class="page-title">Projects</h1>
+    <div class="header" appScrollAnimation="fade-in">
+      <h1 class="page-title">
+        <span class="gradient-text">Projects</span>
+      </h1>
       <p class="subtitle">Explore my portfolio of web and mobile applications</p>
     </div>
 
     <!-- Filter Section -->
-    <div class="filter-section">
-      <mat-button-toggle-group [(value)]="showFeaturedOnly" (change)="toggleFeatured()">
-        <mat-button-toggle [value]="false">All Projects ({{ totalProjects }})</mat-button-toggle>
-        <mat-button-toggle [value]="true">Featured Only</mat-button-toggle>
-      </mat-button-toggle-group>
+    <div class="filter-section" appScrollAnimation="slide-up">
+      <div class="filter-header">
+        <h3>Filter & Search</h3>
+      </div>
+      
+      <div class="filter-row">
+        <!-- Search Bar -->
+        <div class="filter-item search-item">
+          <div class="custom-search-field">
+            <mat-icon class="search-icon">search</mat-icon>
+            <input 
+              type="text"
+              class="search-input"
+              [(ngModel)]="searchQuery"
+              (input)="onSearchChange(searchQuery)"
+              placeholder="Search by name, description, or technology">
+            <button 
+              *ngIf="searchQuery" 
+              class="clear-btn"
+              (click)="searchQuery = ''; onSearchChange('')"
+              aria-label="Clear search">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Technology Filter -->
+        <div class="filter-item tech-item">
+          <div class="custom-select-field">
+            <mat-icon class="filter-icon">filter_list</mat-icon>
+            <select 
+              class="tech-select"
+              [(ngModel)]="selectedTechnology"
+              (change)="onTechnologyChange(selectedTechnology)">
+              <option value="all">All Technologies</option>
+              <option *ngFor="let tech of availableTechnologies" [value]="tech">
+                {{ tech }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Featured Toggle -->
+        <div class="filter-item toggle-item">
+          <div class="featured-toggle">
+            <button 
+              mat-raised-button 
+              [class.active]="!showFeaturedOnly"
+              (click)="showFeaturedOnly = false; toggleFeatured()">
+              <mat-icon>apps</mat-icon>
+              <span>All ({{ totalProjects }})</span>
+            </button>
+            <button 
+              mat-raised-button 
+              [class.active]="showFeaturedOnly"
+              (click)="showFeaturedOnly = true; toggleFeatured()">
+              <mat-icon>star</mat-icon>
+              <span>Featured</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Filters Display -->
+      <div class="active-filters" *ngIf="selectedTechnology !== 'all' || searchQuery">
+        <span class="filter-label">Active filters:</span>
+        <mat-chip-set>
+          <mat-chip *ngIf="selectedTechnology !== 'all'" (removed)="selectedTechnology = 'all'; applyFilters()">
+            {{ selectedTechnology }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <mat-chip *ngIf="searchQuery" (removed)="searchQuery = ''; applyFilters()">
+            "{{ searchQuery }}"
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+        </mat-chip-set>
+        <button mat-button class="clear-filters-btn" (click)="clearFilters()">
+          <mat-icon>clear_all</mat-icon>
+          Clear All
+        </button>
+      </div>
+
+      <!-- Results Count -->
+      <div class="results-count">
+        Showing {{ filteredProjects.length }} of {{ projects.length }} projects
+      </div>
     </div>
 
     <!-- Projects Grid -->
-    <div class="projects-grid" *ngIf="projects.length > 0">
+    <div class="projects-grid" *ngIf="filteredProjects.length > 0">
       <app-project-card 
-        *ngFor="let project of projects" 
+        *ngFor="let project of filteredProjects" 
         [project]="project"
-        (click)="viewProject(project)">
+        (click)="viewProject(project)"
+        appScrollAnimation="scale">
       </app-project-card>
+    </div>
+
+    <!-- No Projects Message -->
+    <div *ngIf="filteredProjects.length === 0 && projects.length > 0" class="no-data">
+      <mat-icon>search_off</mat-icon>
+      <p>No projects match your filters.</p>
+      <button mat-raised-button color="primary" (click)="clearFilters()">Clear Filters</button>
     </div>
 
     <!-- No Projects Message -->

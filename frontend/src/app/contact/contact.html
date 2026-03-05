@@ -1,26 +1,41 @@
 <div class="contact-container">
+  <!-- Animated Background -->
+  <div class="animated-bg">
+    <div class="particle" *ngFor="let particle of particles" 
+         [style.left.%]="particle.x" 
+         [style.animation-delay.s]="particle.delay"
+         [style.animation-duration.s]="particle.duration">
+    </div>
+  </div>
+
   <div class="content">
-    <div class="header">
-      <h1 class="page-title">Get In Touch</h1>
+    <div class="header" appScrollAnimation>
+      <h1 class="page-title">
+        <span class="gradient-text">Get In Touch</span>
+      </h1>
       <p class="subtitle">Have a question or want to work together? I'd love to hear from you!</p>
     </div>
 
     <div class="contact-content">
       <!-- Contact Form -->
-      <div class="form-section">
-        <mat-card>
+      <div class="form-section" appScrollAnimation>
+        <mat-card class="form-card">
+          <div class="card-decoration"></div>
           <mat-card-header>
-            <mat-card-title>Send Me a Message</mat-card-title>
+            <mat-card-title>
+              <mat-icon>mail_outline</mat-icon>
+              Send Me a Message
+            </mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <!-- Success Message -->
-            <div *ngIf="successMessage" class="success-message">
+            <div *ngIf="successMessage" class="success-message" @fadeIn>
               <mat-icon>check_circle</mat-icon>
               <p>{{ successMessage }}</p>
             </div>
 
             <!-- Error Message -->
-            <div *ngIf="error" class="error-message">
+            <div *ngIf="error" class="error-message" @fadeIn>
               <mat-icon>error</mat-icon>
               <p>{{ error }}</p>
             </div>
@@ -29,6 +44,7 @@
             <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Name</mat-label>
+                <mat-icon matPrefix>person</mat-icon>
                 <input matInput formControlName="name" placeholder="Your name" />
                 <mat-error *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
                   {{ getErrorMessage('name') }}
@@ -37,6 +53,7 @@
 
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Email</mat-label>
+                <mat-icon matPrefix>email</mat-icon>
                 <input matInput type="email" formControlName="email" placeholder="your.email@example.com" />
                 <mat-error *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
                   {{ getErrorMessage('email') }}
@@ -45,6 +62,7 @@
 
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Subject</mat-label>
+                <mat-icon matPrefix>subject</mat-icon>
                 <input matInput formControlName="subject" placeholder="What's this about?" />
                 <mat-error *ngIf="contactForm.get('subject')?.touched && contactForm.get('subject')?.invalid">
                   {{ getErrorMessage('subject') }}
@@ -53,6 +71,7 @@
 
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Message</mat-label>
+                <mat-icon matPrefix class="message-icon">message</mat-icon>
                 <textarea 
                   matInput 
                   formControlName="message" 
@@ -81,50 +100,53 @@
 
       <!-- Contact Information -->
       <div class="info-section" *ngIf="profile && !profileLoading">
-        <mat-card class="info-card">
+        <mat-card class="info-card" appScrollAnimation [style.animation-delay.ms]="100">
+          <div class="card-decoration"></div>
           <mat-card-header>
-            <mat-card-title>Contact Information</mat-card-title>
+            <mat-card-title>
+              <mat-icon>contact_page</mat-icon>
+              Contact Information
+            </mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <div class="info-item">
-              <mat-icon>email</mat-icon>
-              <div class="info-details">
-                <h4>Email</h4>
-                <a [href]="'mailto:' + profile.email">{{ profile.email }}</a>
+            <div class="info-item" *ngFor="let info of contactInfo">
+              <div class="info-icon-wrapper">
+                <mat-icon>{{ info.icon }}</mat-icon>
               </div>
-            </div>
-
-            <div class="info-item">
-              <mat-icon>phone</mat-icon>
               <div class="info-details">
-                <h4>Phone</h4>
-                <a [href]="'tel:' + profile.phone">{{ profile.phone }}</a>
-              </div>
-            </div>
-
-            <div class="info-item">
-              <mat-icon>code</mat-icon>
-              <div class="info-details">
-                <h4>GitHub</h4>
-                <a [href]="profile.github" target="_blank">View Profile</a>
-              </div>
-            </div>
-
-            <div class="info-item">
-              <mat-icon>business</mat-icon>
-              <div class="info-details">
-                <h4>LinkedIn</h4>
-                <a [href]="profile.linkedin" target="_blank">Connect</a>
+                <h4>{{ info.label }}</h4>
+                <a [href]="info.href" [target]="info.external ? '_blank' : '_self'">
+                  {{ info.value }}
+                  <mat-icon *ngIf="info.external" class="external-icon">open_in_new</mat-icon>
+                </a>
               </div>
             </div>
           </mat-card-content>
         </mat-card>
 
-        <mat-card class="response-card">
+        <mat-card class="response-card" appScrollAnimation [style.animation-delay.ms]="200">
+          <div class="pulse-circle"></div>
           <mat-card-content>
             <mat-icon>schedule</mat-icon>
             <h3>Response Time</h3>
             <p>I typically respond within 24-48 hours during business days.</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="social-card" appScrollAnimation [style.animation-delay.ms]="300">
+          <mat-card-content>
+            <h3>Let's Connect</h3>
+            <div class="social-links">
+              <a [href]="profile.github" target="_blank" class="social-link github">
+                <mat-icon>code</mat-icon>
+              </a>
+              <a [href]="profile.linkedin" target="_blank" class="social-link linkedin">
+                <mat-icon>business</mat-icon>
+              </a>
+              <a [href]="'mailto:' + profile.email" class="social-link email">
+                <mat-icon>email</mat-icon>
+              </a>
+            </div>
           </mat-card-content>
         </mat-card>
       </div>

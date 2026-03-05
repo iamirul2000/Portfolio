@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="header">
+<mat-toolbar color="primary" class="header" [class.scrolled]="isScrolled">
   <div class="header-container">
     <a routerLink="/" class="logo">
       <img src="portfolio.png" alt="MyPortfolio Logo" class="logo-img">
@@ -13,8 +13,14 @@
       <a mat-button routerLink="/projects" routerLinkActive="active">Projects</a>
       <a mat-button routerLink="/skills" routerLinkActive="active">Skills</a>
       <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
-      <button mat-button (click)="openLoginDialog()" class="admin-login-btn" *ngIf="!(isAuthenticated$ | async)">Admin Login</button>
-      <a mat-button routerLink="/admin" routerLinkActive="active" *ngIf="isAuthenticated$ | async">Admin</a>
+      <button mat-button (click)="openLoginDialog()" class="admin-login-btn" *ngIf="!(isAuthenticated$ | async)">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Admin Login
+      </button>
+      <a mat-button routerLink="/admin" routerLinkActive="active" *ngIf="isAuthenticated$ | async">
+        <mat-icon>dashboard</mat-icon>
+        Admin
+      </a>
       <button mat-button (click)="logout()" *ngIf="isAuthenticated$ | async">
         <mat-icon>logout</mat-icon>
         Logout
@@ -22,9 +28,11 @@
     </nav>
 
     <!-- Mobile Menu Button -->
-    <button mat-icon-button class="mobile-menu-button" [matMenuTriggerFor]="menu">
-      <mat-icon>menu</mat-icon>
-    </button>
+    <div class="mobile-actions">
+      <button mat-icon-button class="mobile-menu-button" [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
     
     <!-- Mobile Menu -->
     <mat-menu #menu="matMenu" class="mobile-menu">
@@ -53,11 +61,11 @@
         <span>Contact</span>
       </a>
       <button mat-menu-item (click)="openLoginDialog()" class="admin-login-menu-item" *ngIf="!(isAuthenticated$ | async)">
-        <mat-icon>login</mat-icon>
+        <mat-icon>admin_panel_settings</mat-icon>
         <span>Admin Login</span>
       </button>
       <a mat-menu-item routerLink="/admin" routerLinkActive="active" *ngIf="isAuthenticated$ | async">
-        <mat-icon>admin_panel_settings</mat-icon>
+        <mat-icon>dashboard</mat-icon>
         <span>Admin</span>
       </a>
       <button mat-menu-item (click)="logout()" *ngIf="isAuthenticated$ | async">

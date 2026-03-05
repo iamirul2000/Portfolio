@@ -1,0 +1,388 @@
+// Theme Compatibility - Ensures readability in both light and dark modes
+// This file fixes hardcoded colors and ensures proper contrast
+
+// ============================================
+// Global Text Color Fixes
+// ============================================
+
+// Ensure all text uses theme variables
+body,
+p,
+span,
+div,
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text);
+}
+
+// Muted text
+.text-muted,
+small,
+.subtitle,
+.meta-info,
+.description {
+  color: var(--color-text-muted) !important;
+}
+
+// ============================================
+// Error/Success/Warning Messages
+// ============================================
+
+.error-message,
+.mat-error,
+[color="warn"] {
+  color: var(--color-error) !important;
+}
+
+.success-message,
+.mat-success {
+  color: var(--color-success) !important;
+}
+
+.warning-message,
+.mat-warn {
+  color: var(--color-warning) !important;
+}
+
+// ============================================
+// Badge and Chip Fixes
+// ============================================
+
+.badge,
+.mat-chip,
+.mat-mdc-chip {
+  &.badge-new,
+  &.status-new {
+    background: rgba(239, 68, 68, 0.15) !important;
+    color: var(--color-error) !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  }
+
+  &.badge-success,
+  &.status-success,
+  &.current-badge {
+    background: rgba(52, 211, 153, 0.15) !important;
+    color: var(--color-success) !important;
+    border: 1px solid rgba(52, 211, 153, 0.3) !important;
+  }
+
+  &.badge-warning {
+    background: rgba(251, 191, 36, 0.15) !important;
+    color: var(--color-warning) !important;
+    border: 1px solid rgba(251, 191, 36, 0.3) !important;
+  }
+
+  &.badge-info {
+    background: rgba(59, 130, 246, 0.15) !important;
+    color: var(--color-primary) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  }
+}
+
+// ============================================
+// Link Fixes
+// ============================================
+
+a {
+  color: var(--color-primary);
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--color-primary-hover);
+  }
+
+  &:visited {
+    color: var(--color-primary);
+  }
+}
+
+// ============================================
+// Card and Surface Fixes
+// ============================================
+
+.mat-card,
+.mat-mdc-card,
+.card,
+.surface {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+
+// ============================================
+// Table Fixes
+// ============================================
+
+.mat-table,
+.mat-mdc-table,
+table {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+
+  th,
+  .mat-header-cell,
+  .mat-mdc-header-cell {
+    color: var(--color-text-muted) !important;
+  }
+
+  td,
+  .mat-cell,
+  .mat-mdc-cell {
+    color: var(--color-text) !important;
+  }
+
+  tr:hover {
+    background: rgba(var(--color-primary), 0.05) !important;
+  }
+}
+
+// ============================================
+// Form Field Fixes
+// ============================================
+
+.mat-form-field,
+.mat-mdc-form-field {
+  color: var(--color-text) !important;
+
+  label,
+  .mat-label,
+  .mat-mdc-label {
+    color: var(--color-text-muted) !important;
+  }
+
+  input,
+  textarea,
+  select {
+    color: var(--color-text) !important;
+    caret-color: var(--color-primary) !important;
+  }
+
+  .mat-hint {
+    color: var(--color-text-muted) !important;
+  }
+}
+
+// ============================================
+// Button Fixes
+// ============================================
+
+.mat-button,
+.mat-raised-button,
+.mat-flat-button,
+.mat-stroked-button,
+.mat-icon-button,
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-flat-button,
+.mat-mdc-stroked-button,
+.mat-mdc-icon-button {
+  &:not([class*="gradient"]) {
+    color: var(--color-text) !important;
+  }
+
+  &[color="primary"] {
+    color: var(--color-primary) !important;
+  }
+
+  &[color="accent"] {
+    color: var(--color-secondary) !important;
+  }
+
+  &[color="warn"] {
+    color: var(--color-error) !important;
+  }
+}
+
+// ============================================
+// Icon Fixes
+// ============================================
+
+.mat-icon {
+  color: inherit;
+
+  &.error-icon {
+    color: var(--color-error) !important;
+  }
+
+  &.success-icon {
+    color: var(--color-success) !important;
+  }
+
+  &.warning-icon {
+    color: var(--color-warning) !important;
+  }
+
+  &.info-icon {
+    color: var(--color-primary) !important;
+  }
+}
+
+// ============================================
+// Specific Component Fixes
+// ============================================
+
+// Empty state
+.empty-state {
+  color: var(--color-text-muted) !important;
+
+  h3 {
+    color: var(--color-text) !important;
+  }
+
+  p {
+    color: var(--color-text-muted) !important;
+  }
+}
+
+// Loading state
+.loading-container,
+.loading-state {
+  color: var(--color-text-muted) !important;
+}
+
+// Stat cards
+.stat-card {
+  .stat-value,
+  h2 {
+    color: var(--color-text) !important;
+  }
+
+  .stat-label,
+  p {
+    color: var(--color-text-muted) !important;
+  }
+}
+
+// Project cards
+.project-card {
+  background: var(--color-surface) !important;
+  border-color: var(--color-border) !important;
+
+  .project-title {
+    color: var(--color-text) !important;
+  }
+
+  .project-description {
+    color: var(--color-text-muted) !important;
+  }
+}
+
+// Experience cards
+.experience-card {
+  background: var(--color-surface) !important;
+  border-color: var(--color-border) !important;
+
+  .company-name {
+    color: var(--color-text) !important;
+  }
+
+  .role-title {
+    color: var(--color-text) !important;
+  }
+
+  .date-range {
+    color: var(--color-text-muted) !important;
+  }
+}
+
+// Skill cards
+.skill-card {
+  background: var(--color-surface) !important;
+  border-color: var(--color-border) !important;
+
+  .skill-name {
+    color: var(--color-text) !important;
+  }
+
+  .skill-level {
+    color: var(--color-text-muted) !important;
+  }
+}
+
+// ============================================
+// Light Theme Specific Overrides
+// ============================================
+
+.light-theme {
+  // Ensure gradient text is visible in light mode
+  .gradient-text {
+    // Gradient already has good contrast, no change needed
+  }
+
+  // Adjust shadows for light mode
+  .card,
+  .mat-card,
+  .mat-mdc-card {
+    box-shadow: var(--shadow-md);
+  }
+
+  // Ensure borders are visible
+  .border,
+  [class*="border"] {
+    border-color: var(--color-border) !important;
+  }
+
+  // Adjust hover states for light mode
+  .hover-effect:hover,
+  [class*="hover"]:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+  }
+}
+
+// ============================================
+// Dark Theme Specific Overrides
+// ============================================
+
+.dark-theme {
+  // Ensure sufficient contrast in dark mode
+  .text-light {
+    color: var(--color-text) !important;
+  }
+
+  // Adjust hover states for dark mode
+  .hover-effect:hover,
+  [class*="hover"]:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+
+  // Ensure glassmorphism works in dark mode
+  .glass-effect,
+  [class*="glass"] {
+    background: rgba(26, 35, 50, 0.6) !important;
+    backdrop-filter: blur(12px);
+  }
+}
+
+// ============================================
+// Accessibility - High Contrast Mode
+// ============================================
+
+@media (prefers-contrast: high) {
+  * {
+    border-width: 2px !important;
+  }
+
+  .gradient-text {
+    -webkit-text-fill-color: var(--color-text) !important;
+    background: none !important;
+  }
+
+  a {
+    text-decoration: underline !important;
+  }
+}
+
+// ============================================
+// Print Styles
+// ============================================
+
+@media print {
+  * {
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  .gradient-text {
+    -webkit-text-fill-color: #000 !important;
+    background: none !important;
+  }
+}

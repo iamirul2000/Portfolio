@@ -20,13 +20,25 @@
     
     <!-- Hero Section -->
     <section class="hero-section section" aria-labelledby="hero-heading">
+      <div class="animated-bg">
+        <div class="particle" *ngFor="let particle of particles" 
+             [style.left.%]="particle.x" 
+             [style.animation-delay.s]="particle.delay"
+             [style.animation-duration.s]="particle.duration">
+        </div>
+      </div>
       <div class="container">
         <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Available for opportunities
+          </div>
           <h1 id="hero-heading" class="heading-1 hero-title">
-            {{ profile.name }}
+            <span class="gradient-text">{{ profile.name }}</span>
           </h1>
           <p class="hero-subtitle body-text-lg">
-            {{ profile.title }}
+            <span appTypingAnimation [texts]="typingTexts"></span>
+            <span class="typing-cursor">|</span>
           </p>
           <p class="hero-pitch body-text text-muted">
             {{ profile.summary }}
@@ -35,54 +47,63 @@
           <!-- CTA Buttons -->
           <div class="hero-actions">
             <button 
-              class="btn btn-primary btn-lg" 
+              class="btn btn-primary btn-lg btn-glow" 
               (click)="navigateToProjects()"
               aria-label="View my projects">
-              View Projects
+              <span>View Projects</span>
+              <mat-icon>arrow_forward</mat-icon>
             </button>
             <button 
               class="btn btn-outline btn-lg" 
               (click)="navigateToContact()"
               aria-label="Contact me">
-              Contact Me
+              <mat-icon>mail_outline</mat-icon>
+              <span>Contact Me</span>
             </button>
           </div>
 
           <!-- Tech Badges -->
           <div class="tech-badges" role="list" aria-label="Technologies I work with">
-            <span class="chip chip-primary" role="listitem">Angular</span>
-            <span class="chip chip-primary" role="listitem">Laravel</span>
-            <span class="chip chip-primary" role="listitem">PHP</span>
-            <span class="chip chip-primary" role="listitem">TypeScript</span>
-            <span class="chip chip-primary" role="listitem">MySQL</span>
-            <span class="chip chip-primary" role="listitem">Docker</span>
+            <span class="chip chip-primary chip-animated" role="listitem" *ngFor="let tech of techStack; let i = index" [style.animation-delay.ms]="i * 100">
+              {{ tech }}
+            </span>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Statistics Section -->
+    <app-statistics-section 
+      *ngIf="statistics.length > 0"
+      [statistics]="statistics">
+    </app-statistics-section>
+
     <!-- Featured Projects Section -->
     <section class="featured-projects-section section-sm" aria-labelledby="featured-heading">
       <div class="container">
         <div class="section-header">
-          <h2 id="featured-heading" class="heading-2">Featured Projects</h2>
+          <h2 id="featured-heading" class="heading-2">
+            <span class="gradient-text">Featured Projects</span>
+          </h2>
           <p class="text-muted">Some of my recent work</p>
         </div>
 
         <div class="projects-grid grid grid-cols-3">
           <app-project-card
-            *ngFor="let project of profile.featured_projects"
+            *ngFor="let project of profile.featured_projects; let i = index"
             [project]="project"
-            class="slide-up">
+            class="slide-up"
+            [style.animation-delay.ms]="i * 150">
           </app-project-card>
         </div>
 
         <div class="section-footer">
           <button 
-            class="btn btn-outline" 
+            class="btn btn-outline btn-hover-fill" 
             (click)="navigateToProjects()"
             aria-label="View all projects">
-            View All Projects
+            <span>View All Projects</span>
+            <mat-icon>arrow_forward</mat-icon>
           </button>
         </div>
       </div>
@@ -108,19 +129,27 @@
     <section class="skills-section section-sm" aria-labelledby="skills-heading">
       <div class="container">
         <div class="section-header">
-          <h2 id="skills-heading" class="heading-2">Skills & Technologies</h2>
+          <h2 id="skills-heading" class="heading-2">
+            <span class="gradient-text">Skills & Technologies</span>
+          </h2>
           <p class="text-muted">Tools and technologies I work with</p>
         </div>
 
         <div class="skills-grid">
           <div 
-            *ngFor="let category of getSkillCategories()" 
-            class="skill-category card slide-up">
-            <h3 class="heading-3">{{ category }}</h3>
+            *ngFor="let category of getSkillCategories(); let i = index" 
+            class="skill-category card slide-up"
+            [style.animation-delay.ms]="i * 100">
+            <div class="category-header">
+              <div class="category-icon">
+                <mat-icon>{{ getCategoryIcon(category) }}</mat-icon>
+              </div>
+              <h3 class="heading-3">{{ category }}</h3>
+            </div>
             <div class="skill-chips">
               <span 
                 *ngFor="let skill of profile.skills_summary[category]" 
-                class="chip chip-secondary">
+                class="chip chip-secondary chip-hover">
                 {{ skill }}
               </span>
             </div>
@@ -132,19 +161,25 @@
     <!-- Contact Section -->
     <section class="contact-section section-sm" aria-labelledby="contact-heading">
       <div class="container">
-        <div class="contact-card card">
+        <div class="contact-card card card-glow">
           <div class="contact-content">
-            <h2 id="contact-heading" class="heading-2">Let's Work Together</h2>
+            <div class="contact-icon">
+              <mat-icon>rocket_launch</mat-icon>
+            </div>
+            <h2 id="contact-heading" class="heading-2">
+              <span class="gradient-text">Let's Work Together</span>
+            </h2>
             <p class="body-text-lg text-muted">
               Have a project in mind? Let's discuss how I can help bring your ideas to life.
             </p>
 
             <div class="contact-actions">
               <button 
-                class="btn btn-primary btn-lg" 
+                class="btn btn-primary btn-lg btn-glow" 
                 (click)="navigateToContact()"
                 aria-label="Send me a message">
-                Send Message
+                <span>Send Message</span>
+                <mat-icon>send</mat-icon>
               </button>
             </div>
 
@@ -155,18 +190,20 @@
                 [href]="profile.github" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                class="social-link"
+                class="social-link social-github"
                 aria-label="Visit my GitHub profile">
-                <span class="chip">GitHub</span>
+                <mat-icon>code</mat-icon>
+                <span>GitHub</span>
               </a>
               <a 
                 *ngIf="profile.linkedin" 
                 [href]="profile.linkedin" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                class="social-link"
+                class="social-link social-linkedin"
                 aria-label="Visit my LinkedIn profile">
-                <span class="chip">LinkedIn</span>
+                <mat-icon>business</mat-icon>
+                <span>LinkedIn</span>
               </a>
             </div>
           </div>

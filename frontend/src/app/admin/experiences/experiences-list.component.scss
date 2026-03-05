@@ -1,3 +1,5 @@
+@import '../admin-shared.scss';
+
 .experiences-list-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -18,18 +20,12 @@
   }
 
   button {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    color: white;
+    @extend .btn-gradient;
     border-radius: 12px;
     padding: 10px 20px;
-    font-weight: 500;
 
     mat-icon {
       margin-right: 8px;
-    }
-
-    &:hover {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
     }
   }
 }
@@ -48,6 +44,7 @@
 }
 
 .table-container {
+  @extend .admin-table;
   background: rgba(15, 23, 42, 0.6);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -133,6 +130,7 @@
   }
 
   button[mat-icon-button] {
+    @extend .action-buttons;
     color: #64748b;
 
     &:hover {

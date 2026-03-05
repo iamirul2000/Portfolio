@@ -14,11 +14,15 @@ export class Projects implements OnInit {
   private router = inject(Router);
 
   projects: Project[] = [];
+  filteredProjects: Project[] = [];
   loading = true;
   error: string | null = null;
   
   // Filter state
   showFeaturedOnly = false;
+  selectedTechnology: string = 'all';
+  availableTechnologies: string[] = [];
+  searchQuery: string = '';
   
   // Pagination state
   currentPage = 1;
@@ -38,6 +42,8 @@ export class Projects implements OnInit {
     this.projectService.getProjects(featured, this.currentPage).subscribe({
       next: (response) => {
         this.projects = response.data;
+        this.extractTechnologies();
+        this.applyFilters();
         this.currentPage = response.meta.current_page;
         this.totalPages = response.meta.last_page;
         this.totalProjects = response.meta.total;
@@ -51,10 +57,59 @@ export class Projects implements OnInit {
     });
   }
 
+  extractTechnologies(): void {
+    const techSet = new Set<string>();
+    this.projects.forEach(project => {
+      if (project.technologies) {
+        project.technologies.forEach(tech => techSet.add(tech));
+      }
+    });
+    this.availableTechnologies = Array.from(techSet).sort();
+  }
+
+  applyFilters(): void {
+    let filtered = [...this.projects];
+
+    // Filter by technology
+    if (this.selectedTechnology !== 'all') {
+      filtered = filtered.filter(project => 
+        project.technologies?.includes(this.selectedTechnology)
+      );
+    }
+
+    // Filter by search query
+    if (this.searchQuery.trim()) {
+      const query = this.searchQuery.toLowerCase();
+      filtered = filtered.filter(project =>
+        project.title.toLowerCase().includes(query) ||
+        project.description?.toLowerCase().includes(query) ||
+        project.technologies?.some(tech => tech.toLowerCase().includes(query))
+      );
+    }
+
+    this.filteredProjects = filtered;
+  }
+
   toggleFeatured(): void {
     this.showFeaturedOnly = !this.showFeaturedOnly;
     this.currentPage = 1;
     this.loadProjects();
+  }
+
+  onTechnologyChange(tech: string): void {
+    this.selectedTechnology = tech;
+    this.applyFilters();
+  }
+
+  onSearchChange(query: string): void {
+    this.searchQuery = query;
+    this.applyFilters();
+  }
+
+  clearFilters(): void {
+    this.selectedTechnology = 'all';
+    this.searchQuery = '';
+    this.applyFilters();
   }
 
   goToPage(page: number): void {

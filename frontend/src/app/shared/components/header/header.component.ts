@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
+import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,8 @@ import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    ThemeToggleComponent
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
@@ -30,7 +32,13 @@ export class HeaderComponent {
   private dialog = inject(MatDialog);
 
   menuOpen = false;
+  isScrolled = false;
   isAuthenticated$ = this.authService.isAuthenticated$;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 50;
+  }
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;

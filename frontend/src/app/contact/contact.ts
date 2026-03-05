@@ -2,12 +2,21 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactService, ProfileService } from '../core/services';
 import { Profile } from '../core/models';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-contact',
   standalone: false,
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-10px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
 })
 export class Contact implements OnInit {
   private fb = inject(FormBuilder);
@@ -20,6 +29,12 @@ export class Contact implements OnInit {
   profileLoading = true;
   error: string | null = null;
   successMessage: string | null = null;
+  contactInfo: any[] = [];
+  particles = Array.from({ length: 20 }, (_, i) => ({
+    x: Math.random() * 100,
+    delay: Math.random() * 5,
+    duration: 15 + Math.random() * 10
+  }));
 
   constructor() {
     this.contactForm = this.fb.group({
@@ -39,6 +54,7 @@ export class Contact implements OnInit {
     this.profileService.getProfile().subscribe({
       next: (response) => {
         this.profile = response.data;
+        this.setupContactInfo();
         this.profileLoading = false;
       },
       error: (err) => {
@@ -46,6 +62,17 @@ export class Contact implements OnInit {
         this.profileLoading = false;
       }
     });
+  }
+
+  setupContactInfo(): void {
+    if (!this.profile) return;
+    
+    this.contactInfo = [
+      { icon: 'email', label: 'Email', value: this.profile.email, href: `mailto:${this.profile.email}`, external: false },
+      { icon: 'phone', label: 'Phone', value: this.profile.phone, href: `tel:${this.profile.phone}`, external: false },
+      { icon: 'code', label: 'GitHub', value: 'View Profile', href: this.profile.github, external: true },
+      { icon: 'business', label: 'LinkedIn', value: 'Connect', href: this.profile.linkedin, external: true }
+    ];
   }
 
   onSubmit(): void {

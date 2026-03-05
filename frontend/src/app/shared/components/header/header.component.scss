@@ -2,7 +2,27 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(15, 23, 42, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
 }
 
 .header-container {
@@ -13,6 +33,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 16px;
+  height: 64px;
 }
 
 .logo {
@@ -20,55 +41,166 @@
   align-items: center;
   gap: 12px;
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
   color: inherit;
+  position: relative;
+  transition: all 0.3s ease;
   
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border-radius: 12px;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
   &:hover {
-    opacity: 0.8;
+    transform: translateY(-2px);
+
+    &::before {
+      opacity: 0.1;
+    }
+
+    .logo-img {
+      transform: rotate(5deg) scale(1.1);
+    }
+
+    span {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
   }
 
   .logo-img {
     width: 48px;
     height: 48px;
     object-fit: contain;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.3));
+  }
+
+  span {
+    transition: all 0.3s ease;
   }
 }
 
 .desktop-nav {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   align-items: center;
 
-  a {
+  a, button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+
+    &:hover::before {
+      width: 80%;
+    }
+
     &.active {
-      background-color: rgba(255, 255, 255, 0.1);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+      color: var(--color-primary);
+
+      &::before {
+        width: 80%;
+      }
     }
   }
 
   .admin-login-btn {
-    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
     color: white !important;
     border-radius: 50px;
     padding: 8px 24px;
-    font-weight: 500;
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 
-    &:hover {
-      background: linear-gradient(135deg, #357abd 0%, #2868a8 100%);
-      box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
-      transform: translateY(-2px);
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
     }
 
-    &.active {
-      background: linear-gradient(135deg, #357abd 0%, #2868a8 100%);
+    &:hover {
+      background: linear-gradient(135deg, #8b5cf6, #ec4899) !important;
+      box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
+      transform: translateY(-3px);
+
+      &::before {
+        width: 300px;
+        height: 300px;
+      }
+    }
+
+    &:active {
+      transform: translateY(-1px);
+    }
+  }
+
+  button[mat-button] {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
     }
   }
 }
 
 .mobile-menu-button {
   display: none;
+  position: relative;
+
+  mat-icon {
+    transition: transform 0.3s ease;
+  }
+
+  &:hover mat-icon {
+    transform: rotate(90deg);
+  }
+}
+
+.mobile-actions {
+  display: none;
+  gap: 8px;
+  align-items: center;
 }
 
 // Mobile styles
@@ -77,19 +209,52 @@
     display: none;
   }
 
+  .mobile-actions {
+    display: flex;
+  }
+
   .mobile-menu-button {
     display: block;
+  }
+
+  .header-container {
+    height: 56px;
   }
 }
 
 // Mobile menu styling
 ::ng-deep .mobile-menu {
+  background: rgba(15, 23, 42, 0.98) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+
+  .mat-mdc-menu-item {
+    color: var(--color-text);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--color-primary);
+    }
+
+    &.active {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--color-primary);
+    }
+
+    mat-icon {
+      color: var(--color-primary);
+    }
+  }
+
   .admin-login-menu-item {
-    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
     color: white !important;
     border-radius: 8px;
     margin: 4px 8px;
-    font-weight: 500;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    transition: all 0.3s ease;
 
     .mat-icon {
       color: white !important;
@@ -100,7 +265,9 @@
     }
 
     &:hover {
-      background: linear-gradient(135deg, #357abd 0%, #2868a8 100%);
+      background: linear-gradient(135deg, #8b5cf6, #ec4899) !important;
+      box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+      transform: translateX(4px);
     }
   }
 }
@@ -110,4 +277,19 @@
   .header-container {
     padding: 0 24px;
   }
+
+  .desktop-nav {
+    gap: 2px;
+
+    a, button {
+      font-size: 0.9rem;
+      padding: 6px 12px;
+    }
+  }
+}
+
+// Scroll effect
+.header.scrolled {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  background: rgba(15, 23, 42, 1) !important;
 }

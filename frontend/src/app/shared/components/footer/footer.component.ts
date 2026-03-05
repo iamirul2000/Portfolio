@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, RouterModule, MatIconModule, MatButtonModule],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
@@ -22,7 +23,7 @@ export class FooterComponent {
     {
       name: 'LinkedIn',
       url: 'https://www.linkedin.com/in/mirul-',
-      icon: 'work'
+      icon: 'business'
     },
     {
       name: 'Email',
@@ -30,4 +31,8 @@ export class FooterComponent {
       icon: 'email'
     }
   ];
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }

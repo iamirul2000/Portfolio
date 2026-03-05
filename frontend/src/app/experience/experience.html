@@ -11,16 +11,18 @@
 
   <!-- Content -->
   <div *ngIf="!loading && !error" class="content">
-    <h1 class="page-title">Professional Experience</h1>
+    <h1 class="page-title">
+      <span class="gradient-text">Professional Experience</span>
+    </h1>
 
     <div class="timeline">
-      <div *ngFor="let exp of experiences; let i = index" class="timeline-item">
+      <div *ngFor="let exp of experiences; let i = index" class="timeline-item" appScrollAnimation="fade-in">
         <div class="timeline-marker">
           <div class="marker-circle" [class.current]="exp.is_current"></div>
           <div class="marker-line" *ngIf="i < experiences.length - 1"></div>
         </div>
 
-        <mat-card class="experience-card">
+        <mat-card class="experience-card" appScrollAnimation="slide-left">
           <mat-card-header>
             <div class="header-content">
               <div class="title-section">
