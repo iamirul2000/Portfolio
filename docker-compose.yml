@@ -1,0 +1,19 @@
+# Docker Compose configuration for Portfolio Application
+# This file will be populated in task 1.1.2
+
+version: '3.8'
+
+services:
+  # Services will be defined in the next task:
+  # - nginx (reverse proxy)
+  # - api (Laravel/PHP-FPM)
+  # - frontend (Angular dev server)
+  # - db (MySQL)
+  # - mailpit (email testing)
+
+networks:
+  portfolio:
+    driver: bridge
+
+volumes:
+  mysql_data:
