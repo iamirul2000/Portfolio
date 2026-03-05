@@ -1,5 +1,4 @@
 .projects-list-container {
-  padding: 24px;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -11,14 +10,26 @@
   margin-bottom: 24px;
 
   h1 {
-    font-size: 32px;
-    font-weight: 500;
+    font-size: 24px;
+    font-weight: 600;
     margin: 0;
+    color: #f1f5f9;
+    letter-spacing: -0.01em;
   }
 
   button {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-weight: 500;
+
     mat-icon {
       margin-right: 8px;
+    }
+
+    &:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
     }
   }
 }
@@ -28,26 +39,62 @@
   justify-content: center;
   align-items: center;
   min-height: 400px;
+
+  mat-spinner {
+    ::ng-deep circle {
+      stroke: #3b82f6;
+    }
+  }
 }
 
 .table-container {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
   overflow: hidden;
 }
 
 .projects-table {
   width: 100%;
+  background: transparent;
 
-  th {
-    font-weight: 600;
-    font-size: 14px;
-    color: #666;
-  }
+  ::ng-deep {
+    .mat-mdc-table {
+      background: transparent;
+    }
 
-  td {
-    padding: 16px;
+    .mat-mdc-header-row {
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .mat-mdc-header-cell {
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 16px 24px;
+      border-bottom: none;
+    }
+
+    .mat-mdc-row {
+      background: transparent;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.03);
+      }
+    }
+
+    .mat-mdc-cell {
+      color: #e4e7eb;
+      font-size: 14px;
+      padding: 16px 24px;
+      border-bottom: none;
+    }
   }
 
   .title-cell {
@@ -56,40 +103,100 @@
     gap: 4px;
 
     strong {
-      font-size: 16px;
-      color: #333;
+      font-size: 15px;
+      font-weight: 500;
+      color: #f1f5f9;
     }
 
     .slug {
       font-size: 12px;
-      color: #999;
+      color: #64748b;
     }
   }
 
   mat-chip-set {
-    mat-chip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    ::ng-deep mat-chip {
       font-size: 12px;
+      background: rgba(59, 130, 246, 0.15);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 8px;
+      padding: 4px 10px;
+      height: auto;
+      min-height: 24px;
     }
   }
 
   .featured-icon {
-    color: #ffc107;
+    color: #fbbf24;
   }
 
   .not-featured-icon {
-    color: #ccc;
+    color: #475569;
+  }
+
+  button[mat-icon-button] {
+    color: #64748b;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #94a3b8;
+    }
+
+    &[color="primary"] {
+      color: #3b82f6;
+
+      &:hover {
+        background: rgba(59, 130, 246, 0.12);
+      }
+    }
+
+    &[color="warn"] {
+      color: #ef4444;
+
+      &:hover {
+        background: rgba(239, 68, 68, 0.12);
+      }
+    }
   }
 }
 
 mat-paginator {
-  border-top: 1px solid #e0e0e0;
+  background: transparent;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: #e4e7eb;
+
+  ::ng-deep {
+    .mat-mdc-paginator-page-size-label,
+    .mat-mdc-paginator-range-label {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .mat-mdc-select-value {
+      color: #e4e7eb;
+    }
+
+    .mat-mdc-icon-button {
+      color: #64748b;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: #94a3b8;
+      }
+
+      &[disabled] {
+        color: #334155;
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {
-  .projects-list-container {
-    padding: 16px;
-  }
-
   .header {
     flex-direction: column;
     align-items: flex-start;
@@ -103,8 +210,11 @@ mat-paginator {
   .projects-table {
     font-size: 14px;
 
-    td, th {
-      padding: 12px 8px;
+    ::ng-deep {
+      .mat-mdc-header-cell,
+      .mat-mdc-cell {
+        padding: 12px 16px;
+      }
     }
   }
 }

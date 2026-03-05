@@ -63,10 +63,24 @@
         border-radius: 16px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
         overflow: hidden;
+        background: rgba(30, 41, 59, 0.5) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
 
         &:hover {
           transform: translateY(-8px);
           box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        ::ng-deep {
+          .mat-mdc-card-header {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1.5rem;
+          }
+
+          .mat-mdc-card-content {
+            padding: 1.5rem;
+          }
         }
 
         mat-card-header {
