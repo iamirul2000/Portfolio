@@ -1,0 +1,109 @@
+.experiences-list-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  button {
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.table-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.experiences-table {
+  width: 100%;
+
+  th {
+    font-weight: 600;
+    font-size: 14px;
+    color: #666;
+  }
+
+  td {
+    padding: 16px;
+  }
+
+  .company-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    strong {
+      font-size: 16px;
+      color: #333;
+    }
+
+    .location {
+      font-size: 12px;
+      color: #999;
+    }
+  }
+
+  .dates-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .current-chip {
+      background-color: #4caf50;
+      color: white;
+      font-size: 11px;
+      height: 24px;
+    }
+  }
+}
+
+mat-paginator {
+  border-top: 1px solid #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .experiences-list-container {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .experiences-table {
+    font-size: 14px;
+
+    td, th {
+      padding: 12px 8px;
+    }
+  }
+}

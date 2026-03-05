@@ -1,0 +1,47 @@
+<div class="skills-container">
+  <!-- Loading State -->
+  <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-message">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="loadSkills()">Retry</button>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!loading && !error" class="content">
+    <div class="header">
+      <h1 class="page-title">Skills & Technologies</h1>
+      <p class="subtitle">My technical expertise across various domains</p>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="skills-grid" *ngIf="categories.length > 0">
+      <mat-card *ngFor="let category of categories" class="category-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>{{ getCategoryIcon(category) }}</mat-icon>
+            {{ category }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="skills-list">
+            <div *ngFor="let skill of skillsByCategory[category]" class="skill-item">
+              <mat-chip [style.background-color]="getLevelColor(skill.level)">
+                {{ skill.name }}
+                <span *ngIf="skill.level" class="level-badge">{{ skill.level }}</span>
+              </mat-chip>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- No Skills Message -->
+    <div *ngIf="categories.length === 0" class="no-data">
+      <mat-icon>code_off</mat-icon>
+      <p>No skills data available.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,114 @@
+<div class="about-container">
+  <!-- Loading State -->
+  <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-message">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="loadProfile()">Retry</button>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="profile && !loading" class="content">
+    <h1 class="page-title">About Me</h1>
+
+    <!-- Professional Summary Section -->
+    <section class="summary-section">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Professional Summary</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="summary-text">{{ profile.summary }}</p>
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education-section">
+      <h2>Education</h2>
+      <div class="education-timeline">
+        <mat-card *ngFor="let edu of education" class="education-card">
+          <mat-card-header>
+            <mat-card-title>{{ edu.degree }}</mat-card-title>
+            <mat-card-subtitle>{{ edu.institution }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="education-details">
+              <div class="detail-item">
+                <mat-icon>school</mat-icon>
+                <span>CGPA: {{ edu.cgpa }}</span>
+              </div>
+              <div class="detail-item">
+                <mat-icon>calendar_today</mat-icon>
+                <span>{{ edu.years }}</span>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+
+    <!-- Current Focus Section -->
+    <section class="focus-section">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Current Focus</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Currently working as a Full Stack Web Software Engineer at Asian Business Software Solutions (ABSS), focusing on:</p>
+          <ul>
+            <li>Angular frontend development and optimization</li>
+            <li>Laravel backend maintenance and enhancement</li>
+            <li>Bug fixing and improving application stability</li>
+            <li>Collaborating with team to deliver quality software</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+    <!-- Resume Download Section -->
+    <section class="resume-section">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Resume</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Download my resume to learn more about my experience and qualifications.</p>
+          <button mat-raised-button color="primary" disabled>
+            <mat-icon>download</mat-icon>
+            Download Resume (Coming Soon)
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="contact-info-section">
+      <h2>Get In Touch</h2>
+      <div class="contact-cards">
+        <mat-card class="contact-card">
+          <mat-icon>email</mat-icon>
+          <h3>Email</h3>
+          <a [href]="'mailto:' + profile.email">{{ profile.email }}</a>
+        </mat-card>
+        <mat-card class="contact-card">
+          <mat-icon>phone</mat-icon>
+          <h3>Phone</h3>
+          <a [href]="'tel:' + profile.phone">{{ profile.phone }}</a>
+        </mat-card>
+        <mat-card class="contact-card">
+          <mat-icon>code</mat-icon>
+          <h3>GitHub</h3>
+          <a [href]="profile.github" target="_blank">View Profile</a>
+        </mat-card>
+        <mat-card class="contact-card">
+          <mat-icon>business</mat-icon>
+          <h3>LinkedIn</h3>
+          <a [href]="profile.linkedin" target="_blank">Connect</a>
+        </mat-card>
+      </div>
+    </section>
+  </div>
+</div>

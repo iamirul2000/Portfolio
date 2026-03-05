@@ -1,0 +1,146 @@
+<div class="form-container">
+  <div class="header">
+    <h1>{{ isEditMode ? 'Edit Experience' : 'Create New Experience' }}</h1>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Company Name</mat-label>
+            <input matInput formControlName="company_name" placeholder="Company Name">
+            @if (experienceForm.get('company_name')?.invalid && experienceForm.get('company_name')?.touched) {
+              <mat-error>Company name is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Role Title</mat-label>
+            <input matInput formControlName="role_title" placeholder="Full Stack Developer">
+            @if (experienceForm.get('role_title')?.invalid && experienceForm.get('role_title')?.touched) {
+              <mat-error>Role title is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Location</mat-label>
+            <input matInput formControlName="location" placeholder="City, Country">
+            @if (experienceForm.get('location')?.invalid && experienceForm.get('location')?.touched) {
+              <mat-error>Location is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Company Domain (optional)</mat-label>
+            <input matInput formControlName="company_domain" placeholder="Fintech, E-commerce, etc.">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row date-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Start Date</mat-label>
+            <input matInput [matDatepicker]="startPicker" formControlName="start_date">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+            @if (experienceForm.get('start_date')?.invalid && experienceForm.get('start_date')?.touched) {
+              <mat-error>Start date is required</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>End Date</mat-label>
+            <input matInput [matDatepicker]="endPicker" formControlName="end_date">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+            @if (experienceForm.get('end_date')?.invalid && experienceForm.get('end_date')?.touched) {
+              <mat-error>End date is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-checkbox formControlName="is_current">This is my current role</mat-checkbox>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Summary</mat-label>
+            <textarea matInput formControlName="summary" rows="4" placeholder="Brief summary of your role and responsibilities"></textarea>
+            @if (experienceForm.get('summary')?.invalid && experienceForm.get('summary')?.touched) {
+              <mat-error>Summary is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-section">
+          <div class="section-header">
+            <h3>Highlights</h3>
+            <button type="button" mat-icon-button color="primary" (click)="addHighlight()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div formArrayName="highlights">
+            @for (highlight of highlights.controls; track $index) {
+              <div class="array-item">
+                <mat-form-field appearance="outline" class="flex-grow" [formGroupName]="$index">
+                  <mat-label>Highlight {{ $index + 1 }}</mat-label>
+                  <input matInput formControlName="value" placeholder="Key achievement or responsibility">
+                  @if (highlight.get('value')?.invalid && highlight.get('value')?.touched) {
+                    <mat-error>Highlight is required</mat-error>
+                  }
+                </mat-form-field>
+                <button type="button" mat-icon-button color="warn" (click)="removeHighlight($index)" [disabled]="highlights.length === 1">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-header">
+            <h3>Technologies</h3>
+            <button type="button" mat-icon-button color="primary" (click)="addTechnology()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div formArrayName="technologies">
+            @for (tech of technologies.controls; track $index) {
+              <div class="array-item">
+                <mat-form-field appearance="outline" class="flex-grow" [formGroupName]="$index">
+                  <mat-label>Technology {{ $index + 1 }}</mat-label>
+                  <input matInput formControlName="value" placeholder="Laravel, Angular, etc.">
+                  @if (tech.get('value')?.invalid && tech.get('value')?.touched) {
+                    <mat-error>Technology is required</mat-error>
+                  }
+                </mat-form-field>
+                <button type="button" mat-icon-button color="warn" (click)="removeTechnology($index)" [disabled]="technologies.length === 1">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" mat-button (click)="cancel()">Cancel</button>
+          <button type="submit" mat-raised-button color="primary" [disabled]="loading || experienceForm.invalid">
+            @if (loading) {
+              <mat-spinner diameter="20"></mat-spinner>
+              Saving...
+            } @else {
+              {{ isEditMode ? 'Update' : 'Create' }} Experience
+            }
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

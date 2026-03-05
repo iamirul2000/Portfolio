@@ -1,0 +1,133 @@
+<div class="contact-container">
+  <div class="content">
+    <div class="header">
+      <h1 class="page-title">Get In Touch</h1>
+      <p class="subtitle">Have a question or want to work together? I'd love to hear from you!</p>
+    </div>
+
+    <div class="contact-content">
+      <!-- Contact Form -->
+      <div class="form-section">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Send Me a Message</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <!-- Success Message -->
+            <div *ngIf="successMessage" class="success-message">
+              <mat-icon>check_circle</mat-icon>
+              <p>{{ successMessage }}</p>
+            </div>
+
+            <!-- Error Message -->
+            <div *ngIf="error" class="error-message">
+              <mat-icon>error</mat-icon>
+              <p>{{ error }}</p>
+            </div>
+
+            <!-- Contact Form -->
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="Your name" />
+                <mat-error *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
+                  {{ getErrorMessage('name') }}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" placeholder="your.email@example.com" />
+                <mat-error *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+                  {{ getErrorMessage('email') }}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Subject</mat-label>
+                <input matInput formControlName="subject" placeholder="What's this about?" />
+                <mat-error *ngIf="contactForm.get('subject')?.touched && contactForm.get('subject')?.invalid">
+                  {{ getErrorMessage('subject') }}
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Message</mat-label>
+                <textarea 
+                  matInput 
+                  formControlName="message" 
+                  rows="6" 
+                  placeholder="Your message...">
+                </textarea>
+                <mat-error *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.invalid">
+                  {{ getErrorMessage('message') }}
+                </mat-error>
+              </mat-form-field>
+
+              <button 
+                mat-raised-button 
+                color="primary" 
+                type="submit" 
+                [disabled]="loading"
+                class="submit-button">
+                <mat-icon *ngIf="!loading">send</mat-icon>
+                <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+                {{ loading ? 'Sending...' : 'Send Message' }}
+              </button>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="info-section" *ngIf="profile && !profileLoading">
+        <mat-card class="info-card">
+          <mat-card-header>
+            <mat-card-title>Contact Information</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="info-item">
+              <mat-icon>email</mat-icon>
+              <div class="info-details">
+                <h4>Email</h4>
+                <a [href]="'mailto:' + profile.email">{{ profile.email }}</a>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon>phone</mat-icon>
+              <div class="info-details">
+                <h4>Phone</h4>
+                <a [href]="'tel:' + profile.phone">{{ profile.phone }}</a>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon>code</mat-icon>
+              <div class="info-details">
+                <h4>GitHub</h4>
+                <a [href]="profile.github" target="_blank">View Profile</a>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <mat-icon>business</mat-icon>
+              <div class="info-details">
+                <h4>LinkedIn</h4>
+                <a [href]="profile.linkedin" target="_blank">Connect</a>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="response-card">
+          <mat-card-content>
+            <mat-icon>schedule</mat-icon>
+            <h3>Response Time</h3>
+            <p>I typically respond within 24-48 hours during business days.</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="experience-container">
+  <!-- Loading State -->
+  <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-message">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="loadExperiences()">Retry</button>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!loading && !error" class="content">
+    <h1 class="page-title">Professional Experience</h1>
+
+    <div class="timeline">
+      <div *ngFor="let exp of experiences; let i = index" class="timeline-item">
+        <div class="timeline-marker">
+          <div class="marker-circle" [class.current]="exp.is_current"></div>
+          <div class="marker-line" *ngIf="i < experiences.length - 1"></div>
+        </div>
+
+        <mat-card class="experience-card">
+          <mat-card-header>
+            <div class="header-content">
+              <div class="title-section">
+                <mat-card-title>{{ exp.role_title }}</mat-card-title>
+                <mat-card-subtitle>
+                  <span class="company-name">{{ exp.company_name }}</span>
+                  <span class="separator">•</span>
+                  <span class="location">{{ exp.location }}</span>
+                  <span class="separator" *ngIf="exp.company_domain">•</span>
+                  <span class="domain" *ngIf="exp.company_domain">{{ exp.company_domain }}</span>
+                </mat-card-subtitle>
+              </div>
+              <div class="date-badge" [class.current-badge]="exp.is_current">
+                <mat-icon *ngIf="exp.is_current">work</mat-icon>
+                <span>{{ getDateRange(exp) }}</span>
+              </div>
+            </div>
+          </mat-card-header>
+
+          <mat-card-content>
+            <p class="summary">{{ exp.summary }}</p>
+
+            <div class="highlights" *ngIf="exp.highlights && exp.highlights.length > 0">
+              <h4>Key Highlights:</h4>
+              <ul>
+                <li *ngFor="let highlight of exp.highlights">{{ highlight }}</li>
+              </ul>
+            </div>
+
+            <div class="technologies" *ngIf="exp.technologies && exp.technologies.length > 0">
+              <h4>Technologies:</h4>
+              <div class="tech-chips">
+                <mat-chip *ngFor="let tech of exp.technologies">
+                  {{ tech }}
+                </mat-chip>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div *ngIf="experiences.length === 0" class="no-data">
+      <mat-icon>work_off</mat-icon>
+      <p>No experience data available.</p>
+    </div>
+  </div>
+</div>

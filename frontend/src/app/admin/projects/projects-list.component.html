@@ -1,0 +1,77 @@
+<div class="projects-list-container">
+  <div class="header">
+    <h1>Projects Management</h1>
+    <button mat-raised-button color="primary" (click)="createNew()">
+      <mat-icon>add</mat-icon>
+      Create New Project
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else {
+    <div class="table-container">
+      <table mat-table [dataSource]="projects" class="projects-table">
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>Title</th>
+          <td mat-cell *matCellDef="let project">
+            <div class="title-cell">
+              <strong>{{ project.title }}</strong>
+              <span class="slug">{{ project.slug }}</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="technologies">
+          <th mat-header-cell *matHeaderCellDef>Technologies</th>
+          <td mat-cell *matCellDef="let project">
+            <mat-chip-set>
+              @for (tech of project.technologies.slice(0, 3); track tech) {
+                <mat-chip>{{ tech }}</mat-chip>
+              }
+              @if (project.technologies.length > 3) {
+                <mat-chip>+{{ project.technologies.length - 3 }}</mat-chip>
+              }
+            </mat-chip-set>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="featured">
+          <th mat-header-cell *matHeaderCellDef>Featured</th>
+          <td mat-cell *matCellDef="let project">
+            @if (project.is_featured) {
+              <mat-icon class="featured-icon">star</mat-icon>
+            } @else {
+              <mat-icon class="not-featured-icon">star_border</mat-icon>
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let project">
+            <button mat-icon-button color="primary" (click)="editProject(project.id)" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteProject(project)" matTooltip="Delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator
+        [length]="totalItems"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[10, 15, 25, 50]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  }
+</div>

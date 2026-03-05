@@ -1,0 +1,99 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Dashboard</h1>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else if (error) {
+    <div class="error-message">
+      {{ error }}
+    </div>
+  } @else if (stats) {
+    <div class="stats-grid">
+      <mat-card class="stat-card" (click)="navigateTo('projects')">
+        <mat-card-content>
+          <div class="stat-icon">
+            <mat-icon>work</mat-icon>
+          </div>
+          <div class="stat-info">
+            <h2>{{ stats.projects_count }}</h2>
+            <p>Projects</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card" (click)="navigateTo('experiences')">
+        <mat-card-content>
+          <div class="stat-icon">
+            <mat-icon>business_center</mat-icon>
+          </div>
+          <div class="stat-info">
+            <h2>{{ stats.experiences_count }}</h2>
+            <p>Experiences</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card" (click)="navigateTo('skills')">
+        <mat-card-content>
+          <div class="stat-icon">
+            <mat-icon>code</mat-icon>
+          </div>
+          <div class="stat-info">
+            <h2>{{ stats.skills_count }}</h2>
+            <p>Skills</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card" (click)="navigateTo('messages')">
+        <mat-card-content>
+          <div class="stat-icon">
+            <mat-icon [class.has-unread]="stats.unread_messages_count > 0">email</mat-icon>
+          </div>
+          <div class="stat-info">
+            <h2>{{ stats.unread_messages_count }}</h2>
+            <p>Unread Messages</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    @if (stats.recent_messages && stats.recent_messages.length > 0) {
+      <mat-card class="recent-messages">
+        <mat-card-header>
+          <mat-card-title>Recent Messages</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            @for (message of stats.recent_messages; track message.id) {
+              <mat-list-item (click)="viewMessage(message.id)" class="message-item">
+                <div class="message-content">
+                  <div class="message-header">
+                    <span class="message-name">{{ message.name }}</span>
+                    @if (message.status === 'new') {
+                      <span class="badge-new">NEW</span>
+                    }
+                  </div>
+                  <div class="message-subject">{{ message.subject }}</div>
+                  <div class="message-meta">
+                    <span>{{ message.email }}</span>
+                    <span>{{ message.created_at | date:'short' }}</span>
+                  </div>
+                </div>
+              </mat-list-item>
+            }
+          </mat-list>
+          <div class="view-all">
+            <button mat-button color="primary" (click)="navigateTo('messages')">
+              View All Messages
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  }
+</div>

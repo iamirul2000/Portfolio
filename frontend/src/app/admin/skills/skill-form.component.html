@@ -1,0 +1,59 @@
+<div class="form-container">
+  <div class="header">
+    <h1>{{ isEditMode ? 'Edit Skill' : 'Create New Skill' }}</h1>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="skillForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Skill Name</mat-label>
+            <input matInput formControlName="name" placeholder="Laravel, Angular, etc.">
+            @if (skillForm.get('name')?.invalid && skillForm.get('name')?.touched) {
+              <mat-error>Skill name is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category">
+              @for (category of categories; track category) {
+                <mat-option [value]="category">{{ category }}</mat-option>
+              }
+            </mat-select>
+            @if (skillForm.get('category')?.invalid && skillForm.get('category')?.touched) {
+              <mat-error>Category is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Level (optional)</mat-label>
+            <mat-select formControlName="level">
+              <mat-option value="">None</mat-option>
+              @for (level of levels; track level) {
+                <mat-option [value]="level">{{ level }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" mat-button (click)="cancel()">Cancel</button>
+          <button type="submit" mat-raised-button color="primary" [disabled]="loading || skillForm.invalid">
+            @if (loading) {
+              <mat-spinner diameter="20"></mat-spinner>
+              Saving...
+            } @else {
+              {{ isEditMode ? 'Update' : 'Create' }} Skill
+            }
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,112 @@
+.project-card {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+    .card-overlay {
+      opacity: 1;
+    }
+  }
+}
+
+.card-image-container {
+  position: relative;
+  overflow: hidden;
+  padding-top: 75%; // 4:3 aspect ratio
+}
+
+.card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  .view-button {
+    color: white;
+    transform: scale(1.5);
+  }
+}
+
+mat-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.project-title {
+  margin: 0 0 8px 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.project-description {
+  margin: 0 0 16px 0;
+  color: rgba(0, 0, 0, 0.6);
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.technologies {
+  margin-bottom: 16px;
+
+  mat-chip-set {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  mat-chip {
+    font-size: 0.75rem;
+  }
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+// Mobile styles
+@media (max-width: 768px) {
+  .project-card {
+    &:hover {
+      transform: none;
+    }
+  }
+
+  .card-overlay {
+    opacity: 0;
+  }
+}

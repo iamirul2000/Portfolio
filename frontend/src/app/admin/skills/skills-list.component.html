@@ -1,0 +1,41 @@
+<div class="skills-list-container">
+  <div class="header">
+    <h1>Skills Management</h1>
+    <button mat-raised-button color="primary" (click)="createNew()">
+      <mat-icon>add</mat-icon>
+      Create New Skill
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else {
+    @for (category of categories; track category) {
+      <div class="category-section">
+        <h2>{{ category }}</h2>
+        <div class="skills-grid">
+          @for (skill of skillsByCategory[category]; track skill.id) {
+            <div class="skill-card">
+              <div class="skill-info">
+                <h3>{{ skill.name }}</h3>
+                @if (skill.level) {
+                  <mat-chip class="level-chip">{{ skill.level }}</mat-chip>
+                }
+              </div>
+              <div class="skill-actions">
+                <button mat-icon-button color="primary" (click)="editSkill(skill.id)" matTooltip="Edit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteSkill(skill)" matTooltip="Delete">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
+</div>

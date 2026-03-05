@@ -1,0 +1,81 @@
+<div class="home-container">
+  <!-- Loading State -->
+  <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-message">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="loadProfile()">Retry</button>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="profile && !loading" class="content">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="name">{{ profile.name }}</h1>
+        <h2 class="title">{{ profile.title }}</h2>
+        <p class="summary">{{ profile.summary }}</p>
+        
+        <div class="cta-buttons">
+          <button mat-raised-button color="primary" (click)="navigateToProjects()">
+            <mat-icon>work</mat-icon>
+            View Projects
+          </button>
+          <button mat-raised-button color="accent" (click)="navigateToContact()">
+            <mat-icon>email</mat-icon>
+            Contact Me
+          </button>
+        </div>
+
+        <div class="social-links">
+          <a [href]="'mailto:' + profile.email" mat-icon-button matTooltip="Email">
+            <mat-icon>email</mat-icon>
+          </a>
+          <a [href]="profile.github" target="_blank" mat-icon-button matTooltip="GitHub">
+            <mat-icon>code</mat-icon>
+          </a>
+          <a [href]="profile.linkedin" target="_blank" mat-icon-button matTooltip="LinkedIn">
+            <mat-icon>business</mat-icon>
+          </a>
+          <a [href]="'tel:' + profile.phone" mat-icon-button matTooltip="Phone">
+            <mat-icon>phone</mat-icon>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Summary Section -->
+    <section class="skills-summary-section">
+      <h3>Key Skills & Technologies</h3>
+      <div class="skills-grid">
+        <div *ngFor="let category of getSkillCategories()" class="skill-category">
+          <h4>{{ category }}</h4>
+          <div class="skill-chips">
+            <mat-chip *ngFor="let skill of profile.skills_summary[category]">
+              {{ skill }}
+            </mat-chip>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="featured-projects-section">
+      <h3>Featured Projects</h3>
+      <div class="projects-grid">
+        <app-project-card 
+          *ngFor="let project of profile.featured_projects" 
+          [project]="project">
+        </app-project-card>
+      </div>
+      <div class="view-all-projects">
+        <button mat-stroked-button color="primary" (click)="navigateToProjects()">
+          View All Projects
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+    </section>
+  </div>
+</div>

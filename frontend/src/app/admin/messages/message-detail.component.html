@@ -1,0 +1,66 @@
+<div class="message-detail-container">
+  <div class="header">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Message Details</h1>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else if (message) {
+    <mat-card class="message-card">
+      <mat-card-header>
+        <div class="message-header">
+          <div class="header-info">
+            <h2>{{ message.subject }}</h2>
+            <div class="meta-info">
+              @if (message.status === 'new') {
+                <mat-chip class="status-new">NEW</mat-chip>
+              } @else {
+                <mat-chip class="status-read">READ</mat-chip>
+              }
+              <span class="date">{{ message.created_at | date:'full' }}</span>
+            </div>
+          </div>
+          <div class="actions">
+            <button mat-raised-button (click)="toggleStatus()">
+              <mat-icon>{{ message.status === 'new' ? 'mark_email_read' : 'mark_email_unread' }}</mat-icon>
+              Mark as {{ message.status === 'new' ? 'Read' : 'Unread' }}
+            </button>
+            <button mat-raised-button color="warn" (click)="deleteMessage()">
+              <mat-icon>delete</mat-icon>
+              Delete
+            </button>
+          </div>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="sender-info">
+          <div class="info-row">
+            <mat-icon>person</mat-icon>
+            <div class="info-content">
+              <label>From</label>
+              <span>{{ message.name }}</span>
+            </div>
+          </div>
+          <div class="info-row">
+            <mat-icon>email</mat-icon>
+            <div class="info-content">
+              <label>Email</label>
+              <a [href]="'mailto:' + message.email">{{ message.email }}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="message-content">
+          <h3>Message</h3>
+          <p>{{ message.message }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

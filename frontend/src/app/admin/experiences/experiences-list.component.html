@@ -1,0 +1,71 @@
+<div class="experiences-list-container">
+  <div class="header">
+    <h1>Experiences Management</h1>
+    <button mat-raised-button color="primary" (click)="createNew()">
+      <mat-icon>add</mat-icon>
+      Create New Experience
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else {
+    <div class="table-container">
+      <table mat-table [dataSource]="experiences" class="experiences-table">
+        <ng-container matColumnDef="company">
+          <th mat-header-cell *matHeaderCellDef>Company</th>
+          <td mat-cell *matCellDef="let experience">
+            <div class="company-cell">
+              <strong>{{ experience.company_name }}</strong>
+              <span class="location">{{ experience.location }}</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef>Role</th>
+          <td mat-cell *matCellDef="let experience">
+            {{ experience.role_title }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dates">
+          <th mat-header-cell *matHeaderCellDef>Dates</th>
+          <td mat-cell *matCellDef="let experience">
+            <div class="dates-cell">
+              {{ formatDateRange(experience) }}
+              @if (experience.is_current) {
+                <mat-chip class="current-chip">Current</mat-chip>
+              }
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let experience">
+            <button mat-icon-button color="primary" (click)="editExperience(experience.id)" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteExperience(experience)" matTooltip="Delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator
+        [length]="totalItems"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[10, 15, 25, 50]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  }
+</div>

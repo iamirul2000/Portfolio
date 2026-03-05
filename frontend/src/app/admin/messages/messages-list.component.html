@@ -1,0 +1,83 @@
+<div class="messages-list-container">
+  <div class="header">
+    <h1>Contact Messages</h1>
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Filter by Status</mat-label>
+      <mat-select [(value)]="statusFilter" (selectionChange)="onStatusFilterChange()">
+        <mat-option value="all">All Messages</mat-option>
+        <mat-option value="new">New</mat-option>
+        <mat-option value="read">Read</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else {
+    <div class="table-container">
+      <table mat-table [dataSource]="messages" class="messages-table">
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let message">
+            @if (message.status === 'new') {
+              <mat-chip class="status-new">NEW</mat-chip>
+            } @else {
+              <mat-chip class="status-read">READ</mat-chip>
+            }
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>From</th>
+          <td mat-cell *matCellDef="let message">
+            <div class="from-cell">
+              <strong>{{ message.name }}</strong>
+              <span class="email">{{ message.email }}</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="subject">
+          <th mat-header-cell *matHeaderCellDef>Subject</th>
+          <td mat-cell *matCellDef="let message">
+            {{ message.subject }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <td mat-cell *matCellDef="let message">
+            {{ message.created_at | date:'short' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let message">
+            <button mat-icon-button color="primary" (click)="viewMessage(message.id)" matTooltip="View">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteMessage(message)" matTooltip="Delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+            [class.unread-row]="row.status === 'new'"
+            (click)="viewMessage(row.id)"></tr>
+      </table>
+
+      <mat-paginator
+        [length]="totalItems"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[10, 15, 25, 50]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  }
+</div>

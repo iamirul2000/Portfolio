@@ -1,0 +1,61 @@
+<mat-toolbar color="primary" class="header">
+  <div class="header-container">
+    <a routerLink="/" class="logo">Amirul Iman</a>
+    
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
+      <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a mat-button routerLink="/about" routerLinkActive="active">About</a>
+      <a mat-button routerLink="/experience" routerLinkActive="active">Experience</a>
+      <a mat-button routerLink="/projects" routerLinkActive="active">Projects</a>
+      <a mat-button routerLink="/skills" routerLinkActive="active">Skills</a>
+      <a mat-button routerLink="/contact" routerLinkActive="active">Contact</a>
+      <a mat-button routerLink="/admin" routerLinkActive="active" *ngIf="isAuthenticated$ | async">Admin</a>
+      <button mat-button (click)="logout()" *ngIf="isAuthenticated$ | async">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button mat-icon-button class="mobile-menu-button" [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    
+    <!-- Mobile Menu -->
+    <mat-menu #menu="matMenu" class="mobile-menu">
+      <a mat-menu-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </a>
+      <a mat-menu-item routerLink="/about" routerLinkActive="active">
+        <mat-icon>person</mat-icon>
+        <span>About</span>
+      </a>
+      <a mat-menu-item routerLink="/experience" routerLinkActive="active">
+        <mat-icon>work</mat-icon>
+        <span>Experience</span>
+      </a>
+      <a mat-menu-item routerLink="/projects" routerLinkActive="active">
+        <mat-icon>folder</mat-icon>
+        <span>Projects</span>
+      </a>
+      <a mat-menu-item routerLink="/skills" routerLinkActive="active">
+        <mat-icon>code</mat-icon>
+        <span>Skills</span>
+      </a>
+      <a mat-menu-item routerLink="/contact" routerLinkActive="active">
+        <mat-icon>email</mat-icon>
+        <span>Contact</span>
+      </a>
+      <a mat-menu-item routerLink="/admin" routerLinkActive="active" *ngIf="isAuthenticated$ | async">
+        <mat-icon>admin_panel_settings</mat-icon>
+        <span>Admin</span>
+      </a>
+      <button mat-menu-item (click)="logout()" *ngIf="isAuthenticated$ | async">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

@@ -1,0 +1,49 @@
+<mat-card class="project-card" [routerLink]="['/projects', project.slug]">
+  <div class="card-image-container">
+    <img 
+      mat-card-image 
+      [src]="project.thumbnail_url" 
+      [alt]="project.title"
+      class="card-image"
+      loading="lazy">
+    <div class="card-overlay">
+      <button mat-icon-button class="view-button">
+        <mat-icon>visibility</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-card-content>
+    <h3 class="project-title">{{ project.title }}</h3>
+    <p class="project-description">{{ project.description }}</p>
+
+    <div class="technologies">
+      <mat-chip-set>
+        <mat-chip *ngFor="let tech of project.technologies">
+          {{ tech }}
+        </mat-chip>
+      </mat-chip-set>
+    </div>
+
+    <div class="card-actions">
+      <a *ngIf="project.repo_url" 
+         [href]="project.repo_url" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         mat-button
+         (click)="$event.stopPropagation()">
+        <mat-icon>code</mat-icon>
+        Code
+      </a>
+      <a *ngIf="project.live_url" 
+         [href]="project.live_url" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         mat-button
+         (click)="$event.stopPropagation()">
+        <mat-icon>launch</mat-icon>
+        Live Demo
+      </a>
+    </div>
+  </mat-card-content>
+</mat-card>

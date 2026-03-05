@@ -1,0 +1,88 @@
+<div class="project-detail-container">
+  <!-- Loading State -->
+  <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-message">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="goBack()">Back to Projects</button>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="project && !loading" class="content">
+    <!-- Back Button -->
+    <div class="back-button">
+      <button mat-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Projects
+      </button>
+    </div>
+
+    <!-- Project Header -->
+    <div class="project-header">
+      <div class="header-content">
+        <h1 class="project-title">{{ project.title }}</h1>
+        <div class="project-meta">
+          <span class="role">{{ project.role }}</span>
+          <span class="separator">•</span>
+          <span class="date-range">{{ getDateRange() }}</span>
+          <mat-chip *ngIf="project.is_featured" class="featured-badge">
+            <mat-icon>star</mat-icon>
+            Featured
+          </mat-chip>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Image -->
+    <div class="project-image">
+      <img [src]="project.thumbnail_url" [alt]="project.title" />
+    </div>
+
+    <!-- Project Content -->
+    <div class="project-content">
+      <!-- Description -->
+      <section class="description-section">
+        <h2>About This Project</h2>
+        <p>{{ project.description }}</p>
+      </section>
+
+      <!-- Highlights -->
+      <section class="highlights-section" *ngIf="project.highlights && project.highlights.length > 0">
+        <h2>Key Highlights</h2>
+        <ul class="highlights-list">
+          <li *ngFor="let highlight of project.highlights">
+            <mat-icon>check_circle</mat-icon>
+            <span>{{ highlight }}</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Technologies -->
+      <section class="technologies-section" *ngIf="project.technologies && project.technologies.length > 0">
+        <h2>Technologies Used</h2>
+        <div class="tech-chips">
+          <mat-chip *ngFor="let tech of project.technologies">
+            {{ tech }}
+          </mat-chip>
+        </div>
+      </section>
+
+      <!-- Links -->
+      <section class="links-section" *ngIf="project.repo_url || project.live_url">
+        <h2>Project Links</h2>
+        <div class="links">
+          <a *ngIf="project.repo_url" [href]="project.repo_url" target="_blank" mat-raised-button color="primary">
+            <mat-icon>code</mat-icon>
+            View Repository
+          </a>
+          <a *ngIf="project.live_url" [href]="project.live_url" target="_blank" mat-raised-button color="accent">
+            <mat-icon>launch</mat-icon>
+            View Live Demo
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
