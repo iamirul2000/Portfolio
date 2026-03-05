@@ -12,6 +12,29 @@ class ProjectRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        // Convert JSON strings to arrays for FormData submissions
+        if ($this->has('highlights') && is_string($this->highlights)) {
+            $this->merge([
+                'highlights' => json_decode($this->highlights, true) ?? []
+            ]);
+        }
+
+        if ($this->has('technologies') && is_string($this->technologies)) {
+            $this->merge([
+                'technologies' => json_decode($this->technologies, true) ?? []
+            ]);
+        }
+
+        // Convert string boolean to actual boolean
+        if ($this->has('is_featured')) {
+            $this->merge([
+                'is_featured' => filter_var($this->is_featured, FILTER_VALIDATE_BOOLEAN)
+            ]);
+        }
+    }
+
     public function rules(): array
     {
         $projectId = $this->route('project')?->id;

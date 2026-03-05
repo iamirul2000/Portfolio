@@ -11,6 +11,29 @@ class ExperienceRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        // Convert JSON strings to arrays for FormData submissions
+        if ($this->has('highlights') && is_string($this->highlights)) {
+            $this->merge([
+                'highlights' => json_decode($this->highlights, true) ?? []
+            ]);
+        }
+
+        if ($this->has('technologies') && is_string($this->technologies)) {
+            $this->merge([
+                'technologies' => json_decode($this->technologies, true) ?? []
+            ]);
+        }
+
+        // Convert string boolean to actual boolean
+        if ($this->has('is_current')) {
+            $this->merge([
+                'is_current' => filter_var($this->is_current, FILTER_VALIDATE_BOOLEAN)
+            ]);
+        }
+    }
+
     public function rules(): array
     {
         return [
