@@ -34,7 +34,8 @@ import { AuthService } from '../../core/services/auth.service';
         
         <div class="nav-content">
           <div class="page-info">
-            <h1 class="page-title">Portfolio Admin</h1>
+            <img src="assets/logo.png" alt="MyPortfolio Logo" class="admin-logo">
+            <h1 class="page-title">MyPortfolio Admin</h1>
           </div>
           
           <div class="nav-actions">
@@ -145,6 +146,18 @@ import { AuthService } from '../../core/services/auth.service';
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+
+    .page-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-logo {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
     }
 
     .page-title {

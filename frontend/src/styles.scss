@@ -130,3 +130,17 @@ button {
   white-space: nowrap;
   border-width: 0;
 }
+
+// Login Dialog Backdrop
+.login-dialog-backdrop {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(4px);
+}
+
+// Material Dialog Container Overrides
+.mat-mdc-dialog-container {
+  .mdc-dialog__surface {
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+  }
+}

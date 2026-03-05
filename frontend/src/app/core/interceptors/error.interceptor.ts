@@ -16,13 +16,13 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       } else {
         // Server-side error
         if (error.status === 401) {
-          // Only redirect to login if we're trying to access a protected route
+          // Only redirect to home if we're trying to access a protected route
           // Don't redirect if it's just the auth check or we're already on a public page
           const currentUrl = router.url;
-          const isAdminRoute = currentUrl.startsWith('/admin') && !currentUrl.startsWith('/admin/login');
+          const isAdminRoute = currentUrl.startsWith('/admin');
           
           if (isAdminRoute) {
-            router.navigate(['/admin/login']);
+            router.navigate(['/']);
           }
           
           errorMessage = 'Unauthorized. Please login.';

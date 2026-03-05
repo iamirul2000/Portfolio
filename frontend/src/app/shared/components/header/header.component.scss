@@ -16,6 +16,9 @@
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 1.5rem;
   font-weight: 600;
   text-decoration: none;
@@ -23,6 +26,12 @@
   
   &:hover {
     opacity: 0.8;
+  }
+
+  .logo-img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
   }
 }
 

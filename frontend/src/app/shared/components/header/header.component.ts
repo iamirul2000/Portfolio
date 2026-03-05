@@ -6,6 +6,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +18,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
@@ -24,6 +27,7 @@ import { MatMenuModule } from '@angular/material/menu';
 export class HeaderComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private dialog = inject(MatDialog);
 
   menuOpen = false;
   isAuthenticated$ = this.authService.isAuthenticated$;
@@ -32,10 +36,21 @@ export class HeaderComponent {
     this.menuOpen = !this.menuOpen;
   }
 
+  openLoginDialog(): void {
+    this.dialog.open(LoginDialogComponent, {
+      width: '450px',
+      maxWidth: '90vw',
+      disableClose: false,
+      autoFocus: true,
+      hasBackdrop: true,
+      backdropClass: 'login-dialog-backdrop'
+    });
+  }
+
   logout(): void {
     this.authService.logout().subscribe({
       next: () => {
-        this.router.navigate(['/admin/login']);
+        this.router.navigate(['/']);
       },
       error: (error) => {
         console.error('Logout failed:', error);
@@ -43,4 +58,3 @@ export class HeaderComponent {
     });
   }
 }
-
