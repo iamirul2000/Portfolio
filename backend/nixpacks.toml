@@ -11,6 +11,7 @@ cmds = [
 cmds = [
   'touch database/database.sqlite',
   'php artisan migrate --force || true',
+  'php artisan fix:projects-table || true',
   'php artisan db:seed --force || true'
 ]
 
