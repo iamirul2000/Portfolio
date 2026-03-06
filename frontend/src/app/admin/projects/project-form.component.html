@@ -57,13 +57,22 @@
 
           <mat-form-field appearance="outline">
             <mat-label>End Date</mat-label>
-            <input matInput [matDatepicker]="endPicker" formControlName="end_date">
+            <input matInput [matDatepicker]="endPicker" formControlName="end_date" [disabled]="isCurrentProject">
             <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
             <mat-datepicker #endPicker></mat-datepicker>
-            @if (projectForm.get('end_date')?.invalid && projectForm.get('end_date')?.touched) {
+            @if (projectForm.get('end_date')?.invalid && projectForm.get('end_date')?.touched && !isCurrentProject) {
               <mat-error>End date is required</mat-error>
             }
+            @if (isCurrentProject) {
+              <mat-hint>Current project - no end date</mat-hint>
+            }
           </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-checkbox [(ngModel)]="isCurrentProject" [ngModelOptions]="{standalone: true}" (change)="onCurrentProjectChange()">
+            Current Project (Ongoing)
+          </mat-checkbox>
         </div>
 
         <div class="form-section">

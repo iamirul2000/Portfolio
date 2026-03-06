@@ -50,7 +50,7 @@ class ProjectRequest extends FormRequest
             'description' => ['required', 'string'],
             'role' => ['required', 'string', 'max:255'],
             'start_date' => ['required', 'date'],
-            'end_date' => ['required', 'date', 'after_or_equal:start_date'],
+            'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
             'highlights' => ['required', 'array', 'min:1'],
             'highlights.*' => ['required', 'string'],
             'technologies' => ['required', 'array', 'min:1'],

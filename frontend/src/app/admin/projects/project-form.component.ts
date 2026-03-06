@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,6 +20,7 @@ import { ProjectService } from '../../core/services/project.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
@@ -46,6 +47,7 @@ export class ProjectFormComponent implements OnInit {
   projectId: number | null = null;
   thumbnailPreview: string | null = null;
   selectedFile: File | null = null;
+  isCurrentProject = false;
 
   ngOnInit(): void {
     this.initForm();
@@ -114,6 +116,17 @@ export class ProjectFormComponent implements OnInit {
     }
   }
 
+  onCurrentProjectChange(): void {
+    const endDateControl = this.projectForm.get('end_date');
+    if (this.isCurrentProject) {
+      endDateControl?.clearValidators();
+      endDateControl?.setValue(null);
+    } else {
+      endDateControl?.setValidators([Validators.required]);
+    }
+    endDateControl?.updateValueAndValidity();
+  }
+
   loadProject(id: number): void {
     this.loading = true;
     this.projectService.getProject(id).subscribe({
@@ -143,11 +156,18 @@ export class ProjectFormComponent implements OnInit {
           description: project.description,
           role: project.role,
           start_date: new Date(project.start_date),
-          end_date: new Date(project.end_date),
+          end_date: project.end_date ? new Date(project.end_date) : null,
           repo_url: project.repo_url,
           live_url: project.live_url,
           is_featured: project.is_featured
         });
+
+        // Check if it's a current project (no end date)
+        this.isCurrentProject = !project.end_date;
+        if (this.isCurrentProject) {
+          this.projectForm.get('end_date')?.clearValidators();
+          this.projectForm.get('end_date')?.updateValueAndValidity();
+        }
 
         this.thumbnailPreview = project.thumbnail_url;
         this.loading = false;
@@ -208,7 +228,11 @@ export class ProjectFormComponent implements OnInit {
     formData.append('description', formValue.description);
     formData.append('role', formValue.role);
     formData.append('start_date', this.formatDate(formValue.start_date));
-    formData.append('end_date', this.formatDate(formValue.end_date));
+    
+    // Only add end_date if not a current project
+    if (!this.isCurrentProject && formValue.end_date) {
+      formData.append('end_date', this.formatDate(formValue.end_date));
+    }
     
     const highlights = this.highlights.controls.map(c => c.value.value);
     formData.append('highlights', JSON.stringify(highlights));
