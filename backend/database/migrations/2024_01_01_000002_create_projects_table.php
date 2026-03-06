@@ -18,7 +18,7 @@ return new class() extends Migration
             $table->text('description');
             $table->string('role');
             $table->date('start_date');
-            $table->date('end_date');
+            $table->date('end_date')->nullable();
             $table->json('highlights');
             $table->json('technologies');
             $table->string('repo_url', 500)->nullable();
