@@ -26,6 +26,7 @@ import { StatisticsSectionComponent } from './shared/components/statistics-secti
 import { AnimatedCounterComponent } from './shared/components/animated-counter/animated-counter.component';
 import { TypingAnimationDirective } from './shared/directives/typing-animation.directive';
 import { SkillProgressBarComponent } from './shared/components/skill-progress-bar/skill-progress-bar.component';
+import { ParticlesBackgroundComponent } from './shared/components/particles-background/particles-background.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SkillProgressBarComponent } from './shared/components/skill-progress-ba
     Projects,
     ProjectDetail,
     Skills,
-    Contact
+    Contact,
+    ParticlesBackgroundComponent
   ],
   imports: [
     BrowserModule,

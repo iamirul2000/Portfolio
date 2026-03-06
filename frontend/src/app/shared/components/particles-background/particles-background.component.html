@@ -1,0 +1,11 @@
+<div class="particles-container">
+  <div 
+    *ngFor="let particle of particles"
+    class="particle particle-{{ particle.type }}"
+    [style.left.%]="particle.x"
+    [style.animation-duration.s]="particle.speed"
+    [style.animation-delay.s]="particle.delay"
+    [style.width.px]="particle.size"
+    [style.height.px]="particle.size">
+  </div>
+</div>

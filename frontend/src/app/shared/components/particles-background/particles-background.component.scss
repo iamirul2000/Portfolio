@@ -1,0 +1,100 @@
+.particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  bottom: -20px;
+  animation: float-up linear infinite;
+  opacity: 0;
+}
+
+// Star particles
+.particle-star {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  animation-name: float-up-star;
+}
+
+// Bubble particles
+.particle-bubble {
+  background: radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.1));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 50%;
+  animation-name: float-up-bubble;
+}
+
+// Line particles
+.particle-line {
+  width: 2px !important;
+  height: 30px !important;
+  background: linear-gradient(to top, transparent, #8b5cf6, transparent);
+  border-radius: 2px;
+  animation-name: float-up-line;
+}
+
+// Star animation - straight up with twinkle
+@keyframes float-up-star {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1);
+    opacity: 0;
+  }
+}
+
+// Bubble animation - floating with slight horizontal movement
+@keyframes float-up-bubble {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-50vh) translateX(20px) scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(-10px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+// Line animation - straight up with fade
+@keyframes float-up-line {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
