@@ -1,11 +1,4 @@
 <div class="skills-container">
-  <!-- Animated Background -->
-  <div class="animated-bg">
-    <div class="floating-icon" *ngFor="let icon of floatingIcons" [style.left.%]="icon.x" [style.animation-delay.s]="icon.delay">
-      <mat-icon>{{ icon.name }}</mat-icon>
-    </div>
-  </div>
-
   <!-- Loading State -->
   <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 

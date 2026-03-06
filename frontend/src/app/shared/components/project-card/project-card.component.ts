@@ -23,6 +23,9 @@ import { Project } from '../../../core/models';
 })
 export class ProjectCardComponent {
   @Input() project!: Project;
+  
+  imageLoading = true;
+  imageError = false;
 
   // Placeholder images that rotate through projects
   private placeholderImages = [
@@ -30,8 +33,6 @@ export class ProjectCardComponent {
     'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop', // Mobile POS
     'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop'  // Payment app
   ];
-
-  private imageError = false;
 
   getProjectImage(): string {
     // If there's a valid thumbnail_url and no error, use it
@@ -44,8 +45,13 @@ export class ProjectCardComponent {
     return this.placeholderImages[index];
   }
 
+  onImageLoad(): void {
+    this.imageLoading = false;
+  }
+
   onImageError(event: Event): void {
     this.imageError = true;
+    this.imageLoading = false;
     // Force re-render by updating the src
     const img = event.target as HTMLImageElement;
     const index = this.project.id % this.placeholderImages.length;

@@ -4,40 +4,6 @@
   position: relative;
   overflow: hidden;
 
-  .animated-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.1;
-
-    .floating-icon {
-      position: absolute;
-      animation: float 20s infinite ease-in-out;
-
-      mat-icon {
-        font-size: 48px;
-        width: 48px;
-        height: 48px;
-        color: var(--color-primary);
-      }
-    }
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0) rotate(0deg);
-      opacity: 0.3;
-    }
-    50% {
-      transform: translateY(-100vh) rotate(360deg);
-      opacity: 0.6;
-    }
-  }
-
   .error-message {
     display: flex;
     flex-direction: column;

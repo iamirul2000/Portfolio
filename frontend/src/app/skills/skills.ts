@@ -16,13 +16,6 @@ export class Skills implements OnInit {
   loading = true;
   error: string | null = null;
   stats: any[] = [];
-  floatingIcons = [
-    { name: 'code', x: 10, delay: 0 },
-    { name: 'terminal', x: 30, delay: 2 },
-    { name: 'storage', x: 50, delay: 4 },
-    { name: 'web', x: 70, delay: 6 },
-    { name: 'build', x: 90, delay: 8 }
-  ];
 
   ngOnInit(): void {
     this.loadSkills();

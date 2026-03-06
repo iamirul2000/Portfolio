@@ -13,7 +13,7 @@
   <div *ngIf="project && !loading" class="content">
     <!-- Back Button -->
     <div class="back-button">
-      <button mat-button (click)="goBack()">
+      <button mat-button (click)="goBack()" class="back-btn">
         <mat-icon>arrow_back</mat-icon>
         Back to Projects
       </button>
@@ -22,62 +22,79 @@
     <!-- Project Header -->
     <div class="project-header">
       <div class="header-content">
-        <h1 class="project-title">{{ project.title }}</h1>
+        <h1 class="project-title">
+          <span class="gradient-text">{{ project.title }}</span>
+        </h1>
         <div class="project-meta">
-          <span class="role">{{ project.role }}</span>
+          <div class="meta-item">
+            <mat-icon>work</mat-icon>
+            <span class="role">{{ project.role }}</span>
+          </div>
           <span class="separator">•</span>
-          <span class="date-range">{{ getDateRange() }}</span>
+          <div class="meta-item">
+            <mat-icon>calendar_today</mat-icon>
+            <span class="date-range">{{ getDateRange() }}</span>
+          </div>
           <mat-chip *ngIf="project.is_featured" class="featured-badge">
             <mat-icon>star</mat-icon>
-            Featured
+            <span>Featured</span>
           </mat-chip>
         </div>
       </div>
     </div>
 
-    <!-- Project Image -->
-    <div class="project-image">
-      <img [src]="project.thumbnail_url" [alt]="project.title" />
-    </div>
-
     <!-- Project Content -->
     <div class="project-content">
       <!-- Description -->
-      <section class="description-section">
-        <h2>About This Project</h2>
+      <section class="description-section card-section">
+        <div class="section-header">
+          <mat-icon>description</mat-icon>
+          <h2><span class="gradient-text">About This Project</span></h2>
+        </div>
         <p>{{ project.description }}</p>
       </section>
 
       <!-- Highlights -->
-      <section class="highlights-section" *ngIf="project.highlights && project.highlights.length > 0">
-        <h2>Key Highlights</h2>
+      <section class="highlights-section card-section" *ngIf="project.highlights && project.highlights.length > 0">
+        <div class="section-header">
+          <mat-icon>emoji_events</mat-icon>
+          <h2><span class="gradient-text">Key Highlights</span></h2>
+        </div>
         <ul class="highlights-list">
-          <li *ngFor="let highlight of project.highlights">
-            <mat-icon>check_circle</mat-icon>
+          <li *ngFor="let highlight of project.highlights; let i = index" [style.animation-delay]="(i * 0.1) + 's'">
+            <div class="highlight-icon">
+              <mat-icon>check_circle</mat-icon>
+            </div>
             <span>{{ highlight }}</span>
           </li>
         </ul>
       </section>
 
       <!-- Technologies -->
-      <section class="technologies-section" *ngIf="project.technologies && project.technologies.length > 0">
-        <h2>Technologies Used</h2>
+      <section class="technologies-section card-section" *ngIf="project.technologies && project.technologies.length > 0">
+        <div class="section-header">
+          <mat-icon>code</mat-icon>
+          <h2><span class="gradient-text">Technologies Used</span></h2>
+        </div>
         <div class="tech-chips">
-          <mat-chip *ngFor="let tech of project.technologies">
+          <mat-chip *ngFor="let tech of project.technologies; let i = index" [style.animation-delay]="(i * 0.05) + 's'">
             {{ tech }}
           </mat-chip>
         </div>
       </section>
 
       <!-- Links -->
-      <section class="links-section" *ngIf="project.repo_url || project.live_url">
-        <h2>Project Links</h2>
+      <section class="links-section card-section" *ngIf="project.repo_url || project.live_url">
+        <div class="section-header">
+          <mat-icon>link</mat-icon>
+          <h2><span class="gradient-text">Project Links</span></h2>
+        </div>
         <div class="links">
-          <a *ngIf="project.repo_url" [href]="project.repo_url" target="_blank" mat-raised-button color="primary">
+          <a *ngIf="project.repo_url" [href]="project.repo_url" target="_blank" mat-raised-button class="link-btn repo-btn">
             <mat-icon>code</mat-icon>
             View Repository
           </a>
-          <a *ngIf="project.live_url" [href]="project.live_url" target="_blank" mat-raised-button color="accent">
+          <a *ngIf="project.live_url" [href]="project.live_url" target="_blank" mat-raised-button class="link-btn live-btn">
             <mat-icon>launch</mat-icon>
             View Live Demo
           </a>

@@ -27,21 +27,40 @@ export interface Statistic {
   `,
   styles: [`
     .statistics-section {
-      padding: var(--spacing-4xl) 0;
-      background: linear-gradient(135deg, 
-        rgba(59, 130, 246, 0.05) 0%, 
-        rgba(139, 92, 246, 0.05) 100%);
+      padding: var(--spacing-2xl) var(--spacing-xl);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
       border-radius: var(--border-radius-lg);
-      margin: var(--spacing-3xl) 0;
+      margin: var(--spacing-xl) auto var(--spacing-3xl) auto;
+      max-width: var(--max-width);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+        opacity: 0.8;
+      }
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(59, 130, 246, 0.2);
+        border-color: var(--color-primary);
+      }
     }
 
     .statistics-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: var(--spacing-xl);
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 var(--spacing-md);
+      padding: 0;
     }
 
     @media (max-width: 768px) {
@@ -58,9 +77,8 @@ export interface Statistic {
     }
 
     :host-context(.light-theme) .statistics-section {
-      background: linear-gradient(135deg, 
-        rgba(59, 130, 246, 0.08) 0%, 
-        rgba(139, 92, 246, 0.08) 100%);
+      background: var(--color-surface);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
   `]
 })

@@ -1,12 +1,19 @@
 <mat-card class="project-card" [routerLink]="['/projects', project.slug]">
   <div class="card-image-container">
+    <!-- Loading skeleton -->
+    <div class="image-skeleton" *ngIf="imageLoading"></div>
+    
+    <!-- Actual image -->
     <img 
       mat-card-image 
       [src]="getProjectImage()" 
       [alt]="project.title"
       class="card-image"
+      [class.loaded]="!imageLoading"
+      (load)="onImageLoad()"
       (error)="onImageError($event)"
       loading="lazy">
+    
     <div class="card-overlay">
       <button mat-icon-button class="view-button">
         <mat-icon>visibility</mat-icon>
