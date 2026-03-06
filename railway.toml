@@ -1,0 +1,9 @@
+# Railway Monorepo Configuration
+# This file tells Railway about your project structure
+
+# You need to deploy frontend and backend as SEPARATE services
+# When creating a service in Railway, set the root directory to either:
+# - "frontend" for the Angular app
+# - "backend" for the Laravel API
+
+# This is just a marker file to indicate this is a monorepo
