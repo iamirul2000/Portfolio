@@ -68,9 +68,9 @@
           <mat-card-title>Recent Messages</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <mat-list>
+          <div class="messages-list">
             @for (message of stats.recent_messages; track message.id) {
-              <mat-list-item (click)="viewMessage(message.id)" class="message-item">
+              <div class="message-item" (click)="viewMessage(message.id)">
                 <div class="message-content">
                   <div class="message-header">
                     <span class="message-name">{{ message.name }}</span>
@@ -84,9 +84,9 @@
                     <span>{{ message.created_at | date:'short' }}</span>
                   </div>
                 </div>
-              </mat-list-item>
+              </div>
             }
-          </mat-list>
+          </div>
           <div class="view-all">
             <button mat-button color="primary" (click)="navigateTo('messages')">
               View All Messages
