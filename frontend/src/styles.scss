@@ -148,3 +148,42 @@ button {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
   }
 }
+
+// SweetAlert2 Custom Styles
+.swal-gradient-popup {
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+.swal-gradient-button {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899) !important;
+  border: none !important;
+  padding: 10px 30px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+  }
+}
+
+.swal2-icon.swal2-success {
+  border-color: #8b5cf6 !important;
+  
+  .swal2-success-ring {
+    border-color: rgba(139, 92, 246, 0.3) !important;
+  }
+  
+  [class^='swal2-success-line'] {
+    background-color: #8b5cf6 !important;
+  }
+}
+
+.swal2-icon.swal2-error {
+  border-color: #ef4444 !important;
+  
+  [class^='swal2-x-mark-line'] {
+    background-color: #ef4444 !important;
+  }
+}

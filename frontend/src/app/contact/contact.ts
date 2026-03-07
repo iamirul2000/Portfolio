@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactService, ProfileService } from '../core/services';
 import { Profile } from '../core/models';
 import { trigger, transition, style, animate } from '@angular/animations';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contact',
@@ -87,19 +88,49 @@ export class Contact implements OnInit {
 
     this.contactService.submitContactForm(this.contactForm.value).subscribe({
       next: (response) => {
-        this.successMessage = response.data.message;
-        this.contactForm.reset();
         this.loading = false;
+        this.contactForm.reset();
+        
+        // Show success popup with SweetAlert2
+        Swal.fire({
+          icon: 'success',
+          title: 'Message Sent!',
+          text: response.data.message || 'Thank you for reaching out! I will get back to you soon.',
+          confirmButtonText: 'Great!',
+          confirmButtonColor: '#3b82f6',
+          background: '#1a1a2e',
+          color: '#ffffff',
+          customClass: {
+            popup: 'swal-gradient-popup',
+            confirmButton: 'swal-gradient-button'
+          }
+        });
       },
       error: (err) => {
-        if (err.status === 429) {
-          this.error = 'Too many requests. Please try again later.';
-        } else if (err.status === 422) {
-          this.error = 'Please check your input and try again.';
-        } else {
-          this.error = 'Failed to send message. Please try again later.';
-        }
         this.loading = false;
+        let errorMessage = 'Failed to send message. Please try again later.';
+        
+        if (err.status === 429) {
+          errorMessage = 'Too many requests. Please try again later.';
+        } else if (err.status === 422) {
+          errorMessage = 'Please check your input and try again.';
+        }
+        
+        // Show error popup with SweetAlert2
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: errorMessage,
+          confirmButtonText: 'Try Again',
+          confirmButtonColor: '#ef4444',
+          background: '#1a1a2e',
+          color: '#ffffff',
+          customClass: {
+            popup: 'swal-gradient-popup',
+            confirmButton: 'swal-gradient-button'
+          }
+        });
+        
         console.error('Error submitting contact form:', err);
       }
     });
