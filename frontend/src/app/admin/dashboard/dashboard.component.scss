@@ -4,6 +4,8 @@
   padding: 24px;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .dashboard-header {
@@ -119,6 +121,8 @@
 .recent-messages {
   @extend .admin-card;
   margin-top: 32px;
+  position: relative;
+  z-index: 1;
 
   mat-card-header {
     margin-bottom: 16px;
@@ -130,13 +134,27 @@
     @extend .gradient-text;
   }
 
+  mat-card-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  mat-list {
+    padding: 0;
+  }
+
   .message-item {
     cursor: pointer;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px;
+    min-height: 80px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
 
     &:hover {
-      background: rgba(var(--color-text), 0.05);
+      background: rgba(139, 92, 246, 0.1);
+      transform: translateX(4px);
     }
 
     &:last-child {
@@ -146,33 +164,37 @@
 
   .message-content {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .message-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
 
     .message-name {
-      font-weight: 500;
+      font-weight: 600;
       font-size: 16px;
+      color: var(--color-text);
     }
 
     .badge-new {
-      background-color: var(--color-error);
+      background: linear-gradient(135deg, #ec4899, #ef4444);
       color: white;
-      padding: 2px 8px;
+      padding: 4px 12px;
       border-radius: 12px;
       font-size: 11px;
       font-weight: 600;
+      letter-spacing: 0.5px;
     }
   }
 
   .message-subject {
     font-size: 14px;
     color: var(--color-text);
-    margin-bottom: 4px;
+    font-weight: 500;
   }
 
   .message-meta {
@@ -180,11 +202,18 @@
     justify-content: space-between;
     font-size: 12px;
     color: var(--color-text-muted);
+    gap: 16px;
+
+    span {
+      display: inline-block;
+    }
   }
 
   .view-all {
     text-align: center;
-    margin-top: 16px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 
     button {
       @extend .btn-gradient;
